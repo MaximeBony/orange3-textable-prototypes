@@ -1,0 +1,2 @@
+Hello, I am random noise text written for no other purposes than to test basic functions of the LexicalHunter widget!
+Also I am in english.
