@@ -93,6 +93,9 @@ class LexicalHunter(OWTextableBaseWidget):
         self.outputSeg = None
         self.defaultDict = {}
 
+        #only for testing the output
+        self.mySimplifiedOutput = list()
+
         # Next two instructions are helpers from TextableUtils. Corresponding
         # interface elements are declared here and actually drawn below (at
         # their position in the UI)...
@@ -139,6 +142,7 @@ class LexicalHunter(OWTextableBaseWidget):
 
         # Utiliser self.labelControl.setText(str(Ma_variable)) pour afficher une variable dans le widget
         self.labelControl = gui.widgetLabel(self.controlArea, "[J'affiche des variables pour les controler]")
+        self.labelControl.setText(str(self.mySimplifiedOutput))
 
         #A definire plus tard
         #gui.separator(widget=optionsBox, height=3)
@@ -229,7 +233,7 @@ class LexicalHunter(OWTextableBaseWidget):
         """Compute result of widget processing and send to output"""
         #self.labelControl.setText("selectedTitles = " + str(self.selectedTitles))
 
-        # A input is needed
+        # An input is needed
         if self.inputSeg == None:
             self.infoBox.setText(
                 "A segmentation input is needed",
@@ -271,6 +275,12 @@ class LexicalHunter(OWTextableBaseWidget):
     def huntTheLexic(self):
         """ Je traite le segement (inputSeg) pour en retourner un output (outputSeg) de ouf """
         self.outputSeg = self.inputSeg #lourd!
+        #variables for testing purposes
+        testDict = {"amour" : ["Joie", "Bonté", "Amour"], "guerre" : ["Arme", "Mort", "Guerre"]}
+
+        for filter_list in testDict:
+            mySimplifiedOutput.append(Segmenter.select(inputSeg, listToRegex(testDict[filter_list])))
+
 
     def updateGUI(self):
         """Update GUI state"""
@@ -288,6 +298,20 @@ class LexicalHunter(OWTextableBaseWidget):
                 self.sendButton.settingsChanged()
         else:
             super().setCaption(title)
+
+    #An eventually useful function, set aside for the moment
+    def listToRegex(self,list):
+        """
+        Takes a list and turns it into a
+        regex that matches any elements within it
+        """
+
+        regexString = "("+"|".join(list)+")"
+        exitRegex = re.compile(regexString, re.IGNORECASE)
+
+        return exitRegex
+
+
 
 class WidgetEditList(OWTextableBaseWidget):
     """Textable widget for modifing the lexical content of the list
