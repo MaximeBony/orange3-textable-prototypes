@@ -183,11 +183,11 @@ class LexicalHunter(OWTextableBaseWidget):
                     listLexicName = fileName.split('\\')
 
                 else:
-                    listLexicName = fileName.split('\/')
+                    listLexicName = fileName.split('/')
 
                 lexicName = listLexicName[-1]
                 lexicName = re.sub('\.txt$', '', lexicName)
-                
+
 
                 # Trying to open the files and store their content in a dictionnary
                 # then store all of theses in a list
@@ -272,11 +272,11 @@ class LexicalHunter(OWTextableBaseWidget):
     def huntTheLexic(self):
         """ Je traite le segement (inputSeg) pour en retourner un output (outputSeg) de ouf """
         #variables for testing purposes
-        testDict = {"amour" : ["Joie", "Bonté", "Amour"], "guerre" : ["Arme", "Mort", "Guerre"]}
+        #testDict = {"amour" : ["Joie", "Bonté", "Amour"], "guerre" : ["Arme", "Mort", "Guerre"]}
         out = list()
         if self.inputSeg is not None:
-            for filter_list in testDict:
-                out.append(Segmenter.select(self.inputSeg, self.listToRegex(testDict[filter_list]))[0])
+            for filter_list in self.myContent:
+                out.append(Segmenter.select(self.inputSeg, self.listToRegex(self.myContent[filter_list]))[0])
 
         self.outputSeg = Segmenter.concatenate(out)
 
