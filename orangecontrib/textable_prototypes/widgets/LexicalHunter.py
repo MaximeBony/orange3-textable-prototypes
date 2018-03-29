@@ -37,6 +37,8 @@ from _textable.widgets.TextableUtils import (
 
 from PyQt4.QtGui import QPlainTextEdit, QFileDialog, QMessageBox
 
+import PyQt4.QtCore as QtCore
+
 import os
 import codecs
 import re
@@ -182,7 +184,7 @@ class LexicalHunter(OWTextableBaseWidget):
 
                 lexicName = listLexicName[-1]
                 lexicName = re.sub('\.txt$', '', lexicName)
-                
+
 
                 # Trying to open the files and store their content in a dictionnary
                 # then store all of theses in a list
@@ -209,7 +211,8 @@ class LexicalHunter(OWTextableBaseWidget):
     def editList(self):
         """ Edit the list of lexical word. Nothing to do now"""
         #self.labelControl.setText("hello")
-        widgetEdit = WidgetEditList()
+        widgetEdit = WidgetEditList(self)
+        widgetEdit.setWindowModality(QtCore.Qt.WindowModal)
         widgetEdit.show()
 
     def inputData(self, newInput):
@@ -323,10 +326,12 @@ class WidgetEditList(OWTextableBaseWidget):
 
     titleList = settings.Setting([])
 
-    def __init__(self):
+    def __init__(self, creator):
         """Widget creator."""
 
         super().__init__()
+        # Variable to communicate with the base widjet by calling self.creator.vriable_name
+        self.creator = creator
 
         # Other attributes...
         self.inputSeg = None
