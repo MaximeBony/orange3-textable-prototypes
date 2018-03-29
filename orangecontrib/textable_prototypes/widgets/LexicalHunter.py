@@ -157,7 +157,6 @@ class LexicalHunter(OWTextableBaseWidget):
         self.infoBox.draw()
 
         self.getDefaultLists()
-        self.createDefaultDict() # Constants...
         self.setTitleList()
         # Send data if autoSend.
         self.sendButton.sendIf()
@@ -173,16 +172,22 @@ class LexicalHunter(OWTextableBaseWidget):
 
         # Initiations
         self.myContent = {}
-        self.defaultLists = []
 
         # For each txt file in the directory...
         for file in os.listdir(__location__):
             if file.endswith(".txt"):
                 # Gets txt file name and substracts .txt extension
                 fileName = os.path.join(__location__, file);
-                listLexicName = fileName.split('\\')
+
+                if platform.system() == "Windows":
+                    listLexicName = fileName.split('\\')
+
+                else:
+                    listLexicName = fileName.split('\/')
+
                 lexicName = listLexicName[-1]
                 lexicName = re.sub('\.txt$', '', lexicName)
+                
 
                 # Trying to open the files and store their content in a dictionnary
                 # then store all of theses in a list
@@ -191,7 +196,6 @@ class LexicalHunter(OWTextableBaseWidget):
                     fileContent = fileHandle.read()
                     fileHandle.close()
                     self.myContent[lexicName] = fileContent.split('\n')
-                    self.defaultLists.append(self.myContent)
                 except IOError:
                     QMessageBox.warning(
                         None,
@@ -201,19 +205,11 @@ class LexicalHunter(OWTextableBaseWidget):
                     )
                     return
 
-    def createDefaultDict(self):
-        """ Creates the default dictionnaries from a list of default lexical list
-        the key must be the title of default lexical list
-        the value is the content of the default lexical list"""
-
-        for lexiclist in self.defaultLists :
-            defaultDict.update(lexiclist)
-
     def setTitleList(self):
         """Creates a list with each key of the default dictionnaries to display them on the list box
         Be careful, the order really metter for the selectedTitles variable !"""
 
-        self.titleLabels = defaultDict.keys()
+        self.titleLabels = self.myContent.keys()
 
     def editList(self):
         """ Edit the list of lexical word. Nothing to do now"""
