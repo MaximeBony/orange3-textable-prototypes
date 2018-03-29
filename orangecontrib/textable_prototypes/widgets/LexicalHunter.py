@@ -92,9 +92,10 @@ class LexicalHunter(OWTextableBaseWidget):
         self.inputSeg = None
         self.outputSeg = None
         self.defaultDict = {}
-
+        ######TESTINGVARIABLESSTART######
         #only for testing the output
-        self.mySimplifiedOutput = list()
+        self.labelControl = gui.widgetLabel(self.controlArea, "[J'affiche des variables pour les controler]")
+        ######TESTINGVARIABLESEND#######
 
         # Next two instructions are helpers from TextableUtils. Corresponding
         # interface elements are declared here and actually drawn below (at
@@ -142,7 +143,7 @@ class LexicalHunter(OWTextableBaseWidget):
 
         # Utiliser self.labelControl.setText(str(Ma_variable)) pour afficher une variable dans le widget
         self.labelControl = gui.widgetLabel(self.controlArea, "[J'affiche des variables pour les controler]")
-        self.labelControl.setText(str(self.mySimplifiedOutput))
+
 
         #A definire plus tard
         #gui.separator(widget=optionsBox, height=3)
@@ -274,14 +275,25 @@ class LexicalHunter(OWTextableBaseWidget):
     ######## NOTRE FONCTION PRINCIPALE !!! #######
     def huntTheLexic(self):
         """ Je traite le segement (inputSeg) pour en retourner un output (outputSeg) de ouf """
-        self.outputSeg = self.inputSeg #lourd!
         #variables for testing purposes
         testDict = {"amour" : ["Joie", "Bonté", "Amour"], "guerre" : ["Arme", "Mort", "Guerre"]}
+        out = list()
+        if self.inputSeg is not None:
+            for filter_list in testDict:
+                out.append(Segmenter.select(self.inputSeg, self.listToRegex(testDict[filter_list]))[0])
 
-        for filter_list in testDict:
-            mySimplifiedOutput.append(Segmenter.select(inputSeg, listToRegex(testDict[filter_list])))
+        self.outputSeg = Segmenter.concatenate(out)
 
 
+        """
+        if self.inputSeg is not None:
+            for filter_list in testDict.keys():
+                self.mySimplifiedOutput.append(Segmenter.select(self.inputSeg, self.listToRegex(testDict[filter_list]))[0].to_string(segment_delimiter="."))
+        else:
+            self.mySimplifiedOutput.append("Error, inputSeg is None")
+
+        self.infoBox.setText(str(self.mySimplifiedOutput))
+        """
     def updateGUI(self):
         """Update GUI state"""
 
