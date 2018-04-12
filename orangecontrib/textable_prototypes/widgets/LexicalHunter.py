@@ -266,6 +266,7 @@ class LexicalHunter(OWTextableBaseWidget):
         # Segmentation go to outputs...
         self.send("Segmentation with annotations", self.outputSeg, self)
         self.infoBox.setText(message)
+
         self.sendButton.resetSettingsChangedFlag()
 
     ######## NOTRE FONCTION PRINCIPALE !!! #######
@@ -275,9 +276,16 @@ class LexicalHunter(OWTextableBaseWidget):
             the function assumes all lists have been selected regardless
             addditionnal functionalities required to make it work properly"""
         out = list()
+        selectedListsNames = list()
+        if self.titleLabels:
+            selectedListsNames = [list(self.titleLabels)[idx] for idx in self.selectedFields]
+
+        selectedLists = {key:value for key, value in self.myContent.items() if key in selectedListsNames}
+
         if self.inputSeg is not None:
-            for filter_list in self.myContent:
-                out.append(Segmenter.select(self.inputSeg, self.listToRegex(self.myContent[filter_list]))[0])
+            for filter_list in selectedLists:
+                out.append(Segmenter.select(self.inputSeg, self.listToRegex(selectedLists[filter_list]), label=filter_list)[0])
+
 
         self.outputSeg = Segmenter.concatenate(out)
 
