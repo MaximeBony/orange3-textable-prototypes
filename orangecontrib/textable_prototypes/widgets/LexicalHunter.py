@@ -82,6 +82,7 @@ class LexicalHunter(OWTextableBaseWidget):
     selectedFields = settings.Setting([])
     titleLabels = settings.Setting([])
     autoSend = settings.Setting(False)
+    labelName = settings.Setting("Topic")
 
     def __init__(self):
         """Widget creator."""
@@ -137,6 +138,13 @@ class LexicalHunter(OWTextableBaseWidget):
             label="Edit lists",
             callback=self.editList,
             width=100,
+        )
+        self.labelNameController = gui.lineEdit(
+            widget=self.controlArea,
+            master=self,
+            value='labelName',
+            label='Annotation key',
+
         )
 
         ###### START NOTA BENNE ######
@@ -294,20 +302,22 @@ class LexicalHunter(OWTextableBaseWidget):
         # label them according to the lists they are found in
         if self.inputSeg is not None:
             for filter_list in selectedLists:
-                out.append(
-                    Segmenter.select(
-                        self.inputSeg,
-                        self.listToRegex(selectedLists[filter_list]),
-                        label=filter_list,
-                    )[0]
-                )
+                work_list = [i for i in selectedLists[filter_list] if i]
+                if work_list:
+                    out.append(
+                        Segmenter.select(
+                            self.inputSeg,
+                            self.listToRegex(work_list),
+                            label=filter_list,
+                        )[0]
+                    )
 
         # lastly we define the output as a segmentation that is a copy of
         # the input, with the segments that we found labeled accordingly
         self.outputSeg = Segmenter.concatenate(
             [Segmenter.bypass(self.inputSeg, label="__None__")] + out,
             merge_duplicates=True,
-            import_labels_as='Topic',
+            import_labels_as=self.labelName,
         )
 
     def updateGUI(self):
