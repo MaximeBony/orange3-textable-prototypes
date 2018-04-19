@@ -271,23 +271,44 @@ class LexicalHunter(OWTextableBaseWidget):
 
     ######## NOTRE FONCTION PRINCIPALE !!! #######
     def huntTheLexic(self):
-        """ main I/O function, filters the inputSeg with the selected
-            lexical fields and outputs the filtered Segmentation as outputSeg
-            the function assumes all lists have been selected regardless
-            addditionnal functionalities required to make it work properly"""
+        """
+            main I/O function, filters the inputSeg with the selected
+            lexical fields and outputs a copy of the input this Segmentation
+            with segments labelised according to the topic they belong in
+        """
+
+        # initiations...
         out = list()
         selectedListsNames = list()
+
+        # first we select the topics according to the ones the user chose
         if self.titleLabels:
-            selectedListsNames = [list(self.titleLabels)[idx] for idx in self.selectedFields]
+            selectedListsNames = [list(self.titleLabels)[idx] for idx
+                                    in self.selectedFields]
 
-        selectedLists = {key:value for key, value in self.myContent.items() if key in selectedListsNames}
+        # we can then associate the topics with their respective lists
+        selectedLists = {key:value for key, value in self.myContent.items()
+                        if key in selectedListsNames}
 
+        # if we have an input, we can select the segments of the input and
+        # label them according to the lists they are found in
         if self.inputSeg is not None:
             for filter_list in selectedLists:
-                out.append(Segmenter.select(self.inputSeg, self.listToRegex(selectedLists[filter_list]), label=filter_list)[0])
+                out.append(
+                    Segmenter.select(
+                        self.inputSeg,
+                        self.listToRegex(selectedLists[filter_list]),
+                        label=filter_list,
+                    )[0]
+                )
 
-
-        self.outputSeg = Segmenter.concatenate(out)
+        # lastly we define the output as a segmentation that is a copy of
+        # the input, with the segments that we found labeled accordingly
+        self.outputSeg = Segmenter.concatenate(
+            [Segmenter.bypass(self.inputSeg, label="__None__")] + out,
+            merge_duplicates=True,
+            import_labels_as='Topic',
+        )
 
     def updateGUI(self):
         """Update GUI state"""
