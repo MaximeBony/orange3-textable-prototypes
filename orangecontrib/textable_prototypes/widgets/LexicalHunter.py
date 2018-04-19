@@ -46,6 +46,8 @@ from os import listdir
 from os.path import isfile, join
 import platform
 
+from unicodedata import normalize
+
 # Global variables
 defaultDict = {}
 
@@ -94,11 +96,7 @@ class LexicalHunter(OWTextableBaseWidget):
         # Other attributes...
         self.inputSeg = None
         self.outputSeg = None
-        self.defaultDict = {}
-        ######TESTINGVARIABLESSTART######
-        #only for testing the output
-        self.labelControl = gui.widgetLabel(self.controlArea, "[J'affiche des variables pour les controler]")
-        ######TESTINGVARIABLESEND#######
+        #self.defaultDict = {}
 
         # Next two instructions are helpers from TextableUtils. Corresponding
         # interface elements are declared here and actually drawn below (at
@@ -141,13 +139,26 @@ class LexicalHunter(OWTextableBaseWidget):
             callback=self.editList,
             width=100,
         )
+
+        # Update lists ...
+        self.Update = gui.button(
+            widget=titleLabelsList,
+            master=self,
+            label="Update",
+            callback=self.setTitleList,
+            width=100,
+
+        )
+        # To change the output key annotation of every segment
         self.labelNameController = gui.lineEdit(
             widget=self.controlArea,
             master=self,
             value='labelName',
             label='Annotation key',
 
-        )
+
+
+
 
         ###### START NOTA BENNE ######
 
@@ -181,7 +192,7 @@ class LexicalHunter(OWTextableBaseWidget):
             __location__ += r"/lexicalfields"
 
         # Initiations
-        self.myContent = {}
+        #self.myContent = {}
 
         # For each txt file in the directory...
         for file in os.listdir(__location__):
@@ -205,7 +216,7 @@ class LexicalHunter(OWTextableBaseWidget):
                     fileHandle = codecs.open(fileName, encoding='utf-8')
                     fileContent = fileHandle.read()
                     fileHandle.close()
-                    self.myContent[lexicName] = fileContent.split('\n')
+                    defaultDict[lexicName] = fileContent.split('\n')
                 except IOError:
                     QMessageBox.warning(
                         None,
@@ -215,18 +226,22 @@ class LexicalHunter(OWTextableBaseWidget):
                     )
                     return
 
+
     def setTitleList(self):
         """Creates a list with each key of the default dictionnaries to display them on the list box
         Be careful, the order really metter for the selectedFields variable !"""
 
-        self.titleLabels = self.myContent.keys()
+        self.titleLabels = defaultDict.keys()
+        self.infoBox.setText(self.titleLabels)
 
     def editList(self):
         """ Edit the list of lexical word. Nothing to do now"""
+
         #self.labelControl.setText("hello")
         widgetEdit = WidgetEditList(self)
         widgetEdit.setWindowModality(QtCore.Qt.WindowModal)
         widgetEdit.show()
+
 
     def inputData(self, newInput):
         """Process incoming data."""
@@ -334,6 +349,7 @@ class LexicalHunter(OWTextableBaseWidget):
     def setCaption(self, title):
         if 'captionTitle' in dir(self):
             changed = title != self.captionTitle
+
             super().setCaption(title)
             if changed:
                 self.sendButton.settingsChanged()
@@ -391,6 +407,7 @@ class WidgetEditList(OWTextableBaseWidget):
     listWord = ""
 
     titleList = settings.Setting([])
+    baseLocation = settings.Setting('.')
 
     def __init__(self, creator):
         """Widget creator."""
@@ -407,6 +424,8 @@ class WidgetEditList(OWTextableBaseWidget):
         # interface elements are declared here and actually drawn below (at
         # their position in the UI)...
         self.infoBox = InfoBox(widget=self.controlArea)
+        # Temporary dictionary so that the user can cancel changes
+        self.tempDict = defaultDict.copy()
 
         # User interface...
 
@@ -427,14 +446,14 @@ class WidgetEditList(OWTextableBaseWidget):
             widget=SaveBox,
             master=self,
             label="Save changes",
-            callback=self.saveChange,
+            callback=self.saveChanges,
             width=130,
         )
         self.CancelChanges = gui.button(
             widget=SaveBox,
             master=self,
             label="Cancel",
-            callback=self.saveChange,
+            callback=self.closeWindow,
             width=130,
         )
         ### END OF SAVE AREA
@@ -446,7 +465,6 @@ class WidgetEditList(OWTextableBaseWidget):
             ########## selectedFields retourne un tabeau de int suivant la position dans selectedFields des listes selectionnees ########
             value="selectedFields",    # setting (list)
             labels="titleList",   # setting (list)
-            callback=self.makeChange,
             tooltip="The list of lexical list that you want to use for annotation",
         )
         self.titleLabelsList.setMinimumHeight(300)
@@ -460,47 +478,55 @@ class WidgetEditList(OWTextableBaseWidget):
             orientation="vertical",
         )
         # Actions on list
+        self.EditList = gui.button(
+            widget=controlBox,
+            master=self,
+            label="Edit",
+            callback=self.setEditContent,
+            width=130,
+            autoDefault=False,
+        )
         self.ImportList = gui.button(
             widget=controlBox,
             master=self,
             label="Import",
-            callback=self.makeChange,
+            callback=self.importLexic,
             width=130,
             autoDefault=False,
         )
         self.ExportList = gui.button(
             widget=controlBox,
             master=self,
-            label="Export",
-            callback=self.makeChange,
+            label="Export All",
+            callback=self.exportAllLexics,
             width=130,
         )
-        self.ImportSelectedList = gui.button(
+        self.ExportSelectedList = gui.button(
             widget=controlBox,
             master=self,
             label="Export Selected",
-            callback=self.makeChange,
+            callback=self.exportOneLexic,
             width=130,
         )
         self.NewList = gui.button(
             widget=controlBox,
             master=self,
             label="New",
-            callback=self.makeChange,
+            callback=self.newLexicalField,
             width=130,
         )
         self.ClearList = gui.button(
             widget=controlBox,
             master=self,
             label="Clear",
-            callback=self.makeChange,
+            callback=self.clearList,
             width=130,
         )
         self.RemoveSelectedList = gui.button(
             widget=controlBox,
             master=self,
             label="Remove Selected",
-            callback=self.makeChange,
+            callback=self.deleteSelectedList,
             width=130,
         )
 
@@ -521,6 +547,17 @@ class WidgetEditList(OWTextableBaseWidget):
             orientation="vertical",
             callback=self.makeChange,
         )
+
+
+
+
+
+
+
+
+
+
+
         # structure ...
         editBox = gui.widgetBox(
             widget=listEditBox,
@@ -530,9 +567,22 @@ class WidgetEditList(OWTextableBaseWidget):
             spacing=0,
         )
 
+
+
+
+
+
+
+
+
+
+
+
+
+
         #Editable text Field. Each line gonna be a enter of the lexical list selected
         self.editor = QPlainTextEdit()
-        self.editor.setPlainText(self.textFieldContent.decode('utf-8'))
+        #self.editor.setPlainText(self.textFieldContent.decode('utf-8'))
         editBox.layout().addWidget(self.editor)
         self.editor.textChanged.connect(self.dontforgettosaveChange)
         self.editor.setMinimumHeight(300)
@@ -542,7 +592,7 @@ class WidgetEditList(OWTextableBaseWidget):
             widget=listEditBox,
             master=self,
             label="Commit",
-            callback=self.saveChange,
+            callback=self.saveEdit,
             width=100,
         )
 
@@ -556,19 +606,211 @@ class WidgetEditList(OWTextableBaseWidget):
         # Now Info box and Send button must be drawn...
         self.infoBox.draw()
 
-    def setTitleList(self):
-        """Creates a list with each key of the default dictionnaries to display them on the list box
-        Be carfull, the order really metter for the selectedFields variable !"""
+    ## OK ##
+    def setEditContent(self):
+        """Sets the lexical field informations when the user wants to edit it"""
+        # Getting selected list title
+        self.listTitle = list(self.titleList)[self.selectedTitles[0]]
+        # Converting words list to string
+        self.editContent = ''.join(self.tempDict[self.listTitle])
+        # Setting editor content with words list (converted to string)
+        self.editor.setPlainText(self.editContent)
+        # Getting old title (to delete it later if the users wants to)
+        self.oldTitle = self.listTitle
 
-        self.titleList = defaultDict.keys()
+        #self.CommitList.setDisabled(True)
+        self.updateGUI()
+
+    ## OK ##
+    def setTitleList(self):
+        """Displays the lexical fields titles in the edit widget view"""
+        self.titleList = self.tempDict.keys()
+
+    ## OK ##
+    def clearList(self):
+        """Clears the list of lexical fields"""
+        # Reset textfields values
+        self.titleEdit.setText("")
+        self.editor.setPlainText("")
+        # Deleting all lexical fields
+        self.tempDict.clear()
+        self.setTitleList()
+
+    ## OK ##
+    def deleteSelectedList(self):
+        """Deletes selected lexical field"""
+        # Getting selected list title
+        self.listToDelete = list(self.titleList)[self.selectedTitles[0]]
+        # Reset textfields values
+        self.titleEdit.setText("")
+        self.editor.setPlainText("")
+        # Deleting selected list
+        self.tempDict.pop(self.listToDelete, None)
+        self.titleList = self.tempDict.keys()
+
+    ## OK ##
+    def newLexicalField(self):
+        """Sets a new entry in the lexical fields dictionnary"""
+        newDict = "New lexical field"
+        i = 1
+        while newDict in self.tempDict.keys():
+            newDict = "New lexical field %i" %i
+            i += 1
+
+        self.tempDict[newDict] = ""
+        self.setTitleList()
 
     def makeChange(self):
-        """Do the chane on the list"""
-        self.infoBox.setText("je change les listes")
+        pass
+        #"""Do the chane on the list"""
+        #self.infoBox.setText("je change les listes")
 
-    def saveChange(self):
-        """Save the list in txt file on the cumputer of the user"""
-        self.infoBox.setText("je sauvegarde les listes !")
+    ## OK ##
+    def saveEdit(self):
+        """Saves the modifications made by the user on the list"""
+        # Getting textfields values
+        self.val = self.editor.toPlainText()
+        self.newTitle = self.titleEdit.text()
+
+        # Reset textfields values
+        self.titleEdit.setText("")
+        self.editor.setPlainText("")
+
+        self.tempDict[self.newTitle] = self.val
+        # Deleting old key and value
+        if self.newTitle != self.oldTitle:
+            del self.tempDict[self.oldTitle]
+
+        self.titleList = self.tempDict.keys()
+
+        self.updateGUI()
+
+    ## OK ##
+    def saveChanges(self):
+        """Saves changes made by the user"""
+        defaultDict.update(self.tempDict)
+        self.hide()
+
+    ## OK ##
+    def closeWindow(self):
+        """Cancels changes made by the user"""
+        self.hide()
+
+    ## OK ##
+    def importLexic(self):
+        """Lets the user import a lexical field from a text file"""
+
+        # Opening a file browser
+        filePath = QFileDialog.getOpenFileName(
+            self,
+            u'Import lexical field file',
+            self.baseLocation,
+            u'Text files (*)'
+        )
+        if not filePath:
+            return
+        self.file = os.path.normpath(filePath)
+        self.baseLocation = os.path.dirname(filePath)
+        # Gets txt file name and substracts .txt extension
+        fileName = os.path.join(self.baseLocation, self.file);
+
+        # Cutting the path to get the name
+        if platform.system() == "Windows":
+            listLexicName = fileName.split('\\')
+
+        else:
+            listLexicName = fileName.split('/')
+
+        # Getting file name
+        lexicName = listLexicName[-1]
+        lexicName = re.sub('\.txt$', '', lexicName)
+
+
+        # Trying to open the files and store their content in a dictionnary
+        # then store all of theses in a list
+        try:
+            fileHandle = open(fileName, encoding='utf-8')
+            self.tempDict[lexicName] = fileHandle.readlines()
+            fileHandle.close()
+            self.setTitleList()
+        except IOError:
+            QMessageBox.warning(
+                None,
+                'Textable',
+                "Couldn't open file.",
+                QMessageBox.Ok
+            )
+            return
+
+
+    ## OK ##
+    def exportOneLexic(self):
+        """Lets the user export the selected lexic to a text file"""
+        # Opening file browser
+        filePath = QFileDialog.getSaveFileName(
+            self,
+            u'Export Selected Lexic',
+            self.baseLocation,
+        )
+
+        # Setting content to save
+        exportTitle = list(self.titleList)[self.selectedTitles[0]]
+        #exportContent = '\n'.join(self.tempDict[exportTitle])
+        exportContent = self.tempDict[exportTitle]
+        #textFieldContent.replace('\r\n', '\n').replace('\r', '\n')
+        #exportContent = self.tempDict[exportTitle].replace('\r\n', '\n').replace('\r', '\n')
+
+        # Saving lexic content
+        if filePath:
+            outputFile = open(
+                filePath,
+                encoding='utf8',
+                mode='w+',
+                errors='xmlcharrefreplace',
+            )
+
+            outputFile.write(exportContent)
+            outputFile.close()
+            QMessageBox.information(
+                None,
+                'Textable',
+                'Lexic file correctly exported',
+                QMessageBox.Ok
+            )
+
+
+    ## OK ##
+    def exportAllLexics(self):
+        """Lets the user export all the lexics"""
+        # Opening file browser
+        filePath = QFileDialog.getExistingDirectory(
+            self,
+            u'Export Selected Lexic',
+            self.baseLocation
+        )
+
+        if filePath:
+            for name in self.tempDict:
+                exportName = name.replace(" ", "_")
+                if platform.system() == "Windows":
+                    fullName = r"{}\{}.txt".format(filePath, exportName)
+                else:
+                    fullName = r"{}/{}.txt".format(filePath, exportName)
+
+                outputFile = open(
+                    fullName,
+                    encoding='utf8',
+                    mode='w+',
+                    errors='xmlcharrefreplace',
+                )
+                outputFile.write('\n'.join(self.tempDict[name]))
+                outputFile.close()
+            QMessageBox.information(
+                None,
+                'Textable',
+                'Lexic files correctly exported',
+                QMessageBox.Ok
+            )
 
     def dontforgettosaveChange(self):
         """Diplay a warning message when the user edit the textfield of the list"""
@@ -585,10 +827,45 @@ class WidgetEditList(OWTextableBaseWidget):
         pass
 
     def updateGUI(self):
-        """Update GUI state"""
+        if self.titleEdit.text() != "":
+            # Disabled elements
+            self.SaveChanges.setDisabled(True)
+            self.CancelChanges.setDisabled(True)
+            self.EditList.setDisabled(True)
+            self.ImportList.setDisabled(True)
+            self.ExportList.setDisabled(True)
+            self.ExportSelectedList.setDisabled(True)
+            self.NewList.setDisabled(True)
+            self.ClearList.setDisabled(True)
+            self.RemoveSelectedList.setDisabled(True)
 
-        if len(self.titleLabels) > 0:
-            self.selectedFields = self.selectedFields
+            # Enabled elements
+            self.CommitList.setDisabled(False)
+            self.editor.setDisabled(False)
+            self.titleEdit.setDisabled(False)
+
+        if self.titleEdit.text() == "":
+            # Enabled elements
+            self.SaveChanges.setDisabled(False)
+            self.CancelChanges.setDisabled(False)
+            self.EditList.setDisabled(False)
+            self.ImportList.setDisabled(False)
+            self.ExportList.setDisabled(False)
+            self.ExportSelectedList.setDisabled(False)
+            self.NewList.setDisabled(False)
+            self.ClearList.setDisabled(False)
+            self.RemoveSelectedList.setDisabled(False)
+
+            # Disabled elements
+            self.CommitList.setDisabled(True)
+            self.editor.setDisabled(True)
+            self.titleEdit.setDisabled(True)
+
+    #def updateGUI(self):
+        #"""Update GUI state"""
+
+        #if len(self.titleLabels) > 0:
+            #self.selectedTitles = self.selectedTitles
 
 
 if __name__ == "__main__":
