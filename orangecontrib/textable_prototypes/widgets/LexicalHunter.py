@@ -96,7 +96,11 @@ class LexicalHunter(OWTextableBaseWidget):
         # Other attributes...
         self.inputSeg = None
         self.outputSeg = None
-        #self.defaultDict = {}
+        self.defaultDict = {}
+        ######TESTINGVARIABLESSTART######
+        #only for testing the output
+        # self.labelControl = gui.widgetLabel(self.controlArea, "[J'affiche des variables pour les controler]")
+        ######TESTINGVARIABLESEND#######
 
         # Next two instructions are helpers from TextableUtils. Corresponding
         # interface elements are declared here and actually drawn below (at
@@ -143,10 +147,6 @@ class LexicalHunter(OWTextableBaseWidget):
 
 
         ###### START NOTA BENNE ######
-
-        # Utiliser self.labelControl.setText(str(Ma_variable)) pour afficher une variable dans le widget
-        self.labelControl = gui.widgetLabel(self.controlArea, "[J'affiche des variables pour les controler]")
-
 
         #A definire plus tard
         #gui.separator(widget=optionsBox, height=3)
