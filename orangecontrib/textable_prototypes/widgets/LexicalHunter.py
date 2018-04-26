@@ -347,6 +347,8 @@ class LexicalHunter(OWTextableBaseWidget):
         regexString = "("+"|".join(list)+")"
         exitRegex = re.compile(regexString, re.IGNORECASE)
 
+        self.labelControl.setText(str(regexString))
+
         return exitRegex
 
 
@@ -529,16 +531,6 @@ class WidgetEditList(OWTextableBaseWidget):
             callback=self.makeChange,
         )
 
-
-
-
-
-
-
-
-
-
-
         # structure ...
         editBox = gui.widgetBox(
             widget=listEditBox,
@@ -547,19 +539,6 @@ class WidgetEditList(OWTextableBaseWidget):
             margin=0,
             spacing=0,
         )
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         #Editable text Field. Each line gonna be a enter of the lexical list selected
         self.editor = QPlainTextEdit()
