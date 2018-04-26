@@ -155,8 +155,7 @@ class LexicalHunter(OWTextableBaseWidget):
             master=self,
             value='labelName',
             label='Annotation key',
-
-
+        )
 
 
 
@@ -192,7 +191,7 @@ class LexicalHunter(OWTextableBaseWidget):
             __location__ += r"/lexicalfields"
 
         # Initiations
-        #self.myContent = {}
+        self.myContent = {}
 
         # For each txt file in the directory...
         for file in os.listdir(__location__):
@@ -313,7 +312,7 @@ class LexicalHunter(OWTextableBaseWidget):
                                     in self.selectedFields]
 
         # we can then associate the topics with their respective lists
-        selectedLists = {key:value for key, value in self.myContent.items()
+        selectedLists = {key:value for key, value in defaultDict.items()
                         if key in selectedListsNames}
 
         # if we have an input, we can select the segments of the input and
@@ -402,7 +401,6 @@ class WidgetEditList(OWTextableBaseWidget):
     textFieldContent = settings.Setting(u''.encode('utf-8'))
     encoding = settings.Setting(u'utf-8')
     selectedFields = []
-    titleList = ["amour","colere","et autres!"]
     listTitle = ""
     listWord = ""
 
@@ -610,7 +608,7 @@ class WidgetEditList(OWTextableBaseWidget):
     def setEditContent(self):
         """Sets the lexical field informations when the user wants to edit it"""
         # Getting selected list title
-        self.listTitle = list(self.titleList)[self.selectedTitles[0]]
+        self.listTitle = list(self.titleList)[self.selectedFields[0]]
         # Converting words list to string
         self.editContent = ''.join(self.tempDict[self.listTitle])
         # Setting editor content with words list (converted to string)
@@ -640,7 +638,7 @@ class WidgetEditList(OWTextableBaseWidget):
     def deleteSelectedList(self):
         """Deletes selected lexical field"""
         # Getting selected list title
-        self.listToDelete = list(self.titleList)[self.selectedTitles[0]]
+        self.listToDelete = list(self.titleList)[self.selectedFields[0]]
         # Reset textfields values
         self.titleEdit.setText("")
         self.editor.setPlainText("")
@@ -754,7 +752,7 @@ class WidgetEditList(OWTextableBaseWidget):
         )
 
         # Setting content to save
-        exportTitle = list(self.titleList)[self.selectedTitles[0]]
+        exportTitle = list(self.titleList)[self.selectedFields[0]]
         #exportContent = '\n'.join(self.tempDict[exportTitle])
         exportContent = self.tempDict[exportTitle]
         #textFieldContent.replace('\r\n', '\n').replace('\r', '\n')
@@ -865,7 +863,7 @@ class WidgetEditList(OWTextableBaseWidget):
         #"""Update GUI state"""
 
         #if len(self.titleLabels) > 0:
-            #self.selectedTitles = self.selectedTitles
+            #self.selectedFields = self.selectedFields
 
 
 if __name__ == "__main__":
