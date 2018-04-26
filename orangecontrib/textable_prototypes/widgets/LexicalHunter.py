@@ -396,7 +396,6 @@ class WidgetEditList(OWTextableBaseWidget):
 
         super().__init__()
         # Variable to communicate with the base widjet by calling self.creator.vriable_name
-        self.creator = creator
 
         self.caller = caller
         # Other attributes...
@@ -636,7 +635,7 @@ class WidgetEditList(OWTextableBaseWidget):
         # Reset textfields values
         self.titleEdit.setText("")
         self.editor.setPlainText("")
-        
+
         wordList = self.val.split("\n")
 
         self.tempDict[self.newTitle] = wordList
