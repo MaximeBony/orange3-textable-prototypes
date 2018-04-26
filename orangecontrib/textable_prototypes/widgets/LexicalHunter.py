@@ -140,23 +140,6 @@ class LexicalHunter(OWTextableBaseWidget):
             width=100,
         )
 
-        # Update lists ...
-        self.Update = gui.button(
-            widget=titleLabelsList,
-            master=self,
-            label="Update",
-            callback=self.setTitleList,
-            width=100,
-
-        )
-        # To change the output key annotation of every segment
-        self.labelNameController = gui.lineEdit(
-            widget=self.controlArea,
-            master=self,
-            value='labelName',
-            label='Annotation key',
-        )
-
 
 
         ###### START NOTA BENNE ######
@@ -228,19 +211,18 @@ class LexicalHunter(OWTextableBaseWidget):
 
     def setTitleList(self):
         """Creates a list with each key of the default dictionnaries to display them on the list box
-        Be careful, the order really metter for the selectedFields variable !"""
-
+        Be careful, the order really metter for the selectedTitles variable !"""
         self.titleLabels = defaultDict.keys()
         self.infoBox.setText(self.titleLabels)
 
     def editList(self):
         """ Edit the list of lexical word. Nothing to do now"""
+        self.widgetEdit = WidgetEditList(self)
+        self.widgetEdit.show()
+        self.setTitleList()
 
-        #self.labelControl.setText("hello")
-        widgetEdit = WidgetEditList(self)
-        widgetEdit.setWindowModality(QtCore.Qt.WindowModal)
-        widgetEdit.show()
-
+    def hideEditWidget(self):
+        self.widgetEdit.hide()
 
     def inputData(self, newInput):
         """Process incoming data."""
@@ -407,13 +389,14 @@ class WidgetEditList(OWTextableBaseWidget):
     titleList = settings.Setting([])
     baseLocation = settings.Setting('.')
 
-    def __init__(self, creator):
+    def __init__(self, caller):
         """Widget creator."""
 
         super().__init__()
         # Variable to communicate with the base widjet by calling self.creator.vriable_name
         self.creator = creator
 
+        self.caller = caller
         # Other attributes...
         self.inputSeg = None
         self.outputSeg = None
@@ -600,6 +583,7 @@ class WidgetEditList(OWTextableBaseWidget):
         gui.rubber(self.controlArea)
 
         self.setTitleList()
+        self.updateGUI()
 
         # Now Info box and Send button must be drawn...
         self.infoBox.draw()
@@ -688,6 +672,7 @@ class WidgetEditList(OWTextableBaseWidget):
         """Saves changes made by the user"""
         defaultDict.update(self.tempDict)
         self.hide()
+        self.caller.setTitleList()
 
     ## OK ##
     def closeWindow(self):
