@@ -313,6 +313,7 @@ class LexicalHunter(OWTextableBaseWidget):
         self.outputSeg = Segmenter.concatenate(
             [Segmenter.bypass(self.inputSeg, label="__None__")] + out,
             merge_duplicates=True,
+            label=self.captionTitle,
             import_labels_as=self.labelName,
         )
 
@@ -340,7 +341,7 @@ class LexicalHunter(OWTextableBaseWidget):
         regex that matches any elements within it
         """
 
-        regexString = "("+"|".join(list)+")"
+        regexString = "^("+"|".join(list)+")$"
         exitRegex = re.compile(regexString, re.IGNORECASE)
 
         return exitRegex
@@ -580,6 +581,15 @@ class WidgetEditList(OWTextableBaseWidget):
 
         if len(self.titleLabels) > 0:
             self.selectedFields = self.selectedFields
+
+    def setCaption(self, title):
+        if 'captionTitle' in dir(self):
+            changed = title != self.captionTitle
+            super().setCaption(title)
+            if changed:
+                self.sendButton.settingsChanged()
+        else:
+            super().setCaption(title)
 
 
 if __name__ == "__main__":
