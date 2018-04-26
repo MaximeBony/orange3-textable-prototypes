@@ -213,7 +213,6 @@ class LexicalHunter(OWTextableBaseWidget):
         """Creates a list with each key of the default dictionnaries to display them on the list box
         Be careful, the order really metter for the selectedTitles variable !"""
         self.titleLabels = defaultDict.keys()
-        self.infoBox.setText(self.titleLabels)
 
     def editList(self):
         """ Edit the list of lexical word. Nothing to do now"""
@@ -316,6 +315,7 @@ class LexicalHunter(OWTextableBaseWidget):
         self.outputSeg = Segmenter.concatenate(
             [Segmenter.bypass(self.inputSeg, label="__None__")] + out,
             merge_duplicates=True,
+            label=self.captionTitle,
             import_labels_as=self.labelName,
         )
 
@@ -344,10 +344,8 @@ class LexicalHunter(OWTextableBaseWidget):
         regex that matches any elements within it
         """
 
-        regexString = "("+"|".join(list)+")"
+        regexString = "^("+"|".join(list)+")$"
         exitRegex = re.compile(regexString, re.IGNORECASE)
-
-        self.labelControl.setText(str(regexString))
 
         return exitRegex
 
