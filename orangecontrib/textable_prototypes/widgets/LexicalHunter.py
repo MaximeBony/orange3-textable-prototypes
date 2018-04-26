@@ -51,7 +51,6 @@ from unicodedata import normalize
 # Global variables
 defaultDict = {}
 
-
 class LexicalHunter(OWTextableBaseWidget):
     """Textable widget for identifying lexical fields in segments
     """
@@ -82,9 +81,9 @@ class LexicalHunter(OWTextableBaseWidget):
         version=__version__.rsplit(".", 1)[0]
     )
 
+    savedDict = settings.Setting({})
     lexicalDict = settings.Setting({})
     selectedFields = settings.Setting([])
-    titleLabels = settings.Setting([])
     autoSend = settings.Setting(False)
     labelName = settings.Setting("Topic")
 
@@ -96,7 +95,10 @@ class LexicalHunter(OWTextableBaseWidget):
         # Other attributes...
         self.inputSeg = None
         self.outputSeg = None
-        self.defaultDict = {}
+        self.titleLabels = []
+        # Put the saved dictionarys in the global variable defaultDict
+        defaultDict.update(self.savedDict)
+
         ######TESTINGVARIABLESSTART######
         #only for testing the output
         # self.labelControl = gui.widgetLabel(self.controlArea, "[J'affiche des variables pour les controler]")
@@ -144,6 +146,13 @@ class LexicalHunter(OWTextableBaseWidget):
             width=100,
         )
 
+        self.titleEdit = gui.lineEdit(
+            widget=self.controlArea,
+            master=self,
+            value="labelName",
+            label="Annotation key : ",
+            orientation="horizontal",
+        )
 
 
         ###### START NOTA BENNE ######
@@ -213,6 +222,9 @@ class LexicalHunter(OWTextableBaseWidget):
         """Creates a list with each key of the default dictionnaries to display them on the list box
         Be careful, the order really metter for the selectedTitles variable !"""
         self.titleLabels = defaultDict.keys()
+        # save the dictionnary used to display the list as a setting
+        self.savedDict.clear()
+        self.savedDict.update(defaultDict)
 
     def editList(self):
         """ Edit the list of lexical word. Nothing to do now"""
@@ -262,6 +274,16 @@ class LexicalHunter(OWTextableBaseWidget):
             )
             self.send("Segmentation with annotations", None, self)
             return
+
+        # A annotation key must have been defined
+        if self.labelName == "":
+            self.infoBox.setText(
+                "A annoatation key is needed.",
+                "warning"
+            )
+            self.send("Segmentation with annotations", None, self)
+            return
+
 
         self.huntTheLexic()
 
@@ -348,7 +370,6 @@ class LexicalHunter(OWTextableBaseWidget):
         exitRegex = re.compile(regexString, re.IGNORECASE)
 
         return exitRegex
-
 
 
 class WidgetEditList(OWTextableBaseWidget):
