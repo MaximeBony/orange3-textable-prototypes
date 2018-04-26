@@ -828,6 +828,15 @@ class WidgetEditList(OWTextableBaseWidget):
         #if len(self.titleLabels) > 0:
             #self.selectedFields = self.selectedFields
 
+    def setCaption(self, title):
+        if 'captionTitle' in dir(self):
+            changed = title != self.captionTitle
+            super().setCaption(title)
+            if changed:
+                self.sendButton.settingsChanged()
+        else:
+            super().setCaption(title)
+
 
 if __name__ == "__main__":
     import sys
