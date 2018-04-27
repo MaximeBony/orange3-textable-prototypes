@@ -608,24 +608,43 @@ class WidgetEditList(OWTextableBaseWidget):
     ## OK ##
     def clearList(self):
         """Clears the list of lexical fields"""
-        # Reset textfields values
-        self.titleEdit.setText("")
-        self.editor.setPlainText("")
-        # Deleting all lexical fields
-        self.tempDict.clear()
-        self.setTitleList()
+        clearBox = QMessageBox(QMessageBox.Question, "Textable", "Do you really want to clear all the lexic lists?", QMessageBox.Yes | QMessageBox.No)
+        clearBox.show()
+        
+        # Getting the answer of the user
+        result = clearBox.exec_()
+        if result == QMessageBox.Yes:
+            # Reset textfields values
+            self.titleEdit.setText("")
+            self.editor.setPlainText("")
+            # Deleting all lexical fields
+            self.tempDict.clear()
+            self.setTitleList()
+        else:
+            pass
+
+        
 
     ## OK ##
     def deleteSelectedList(self):
         """Deletes selected lexical field"""
-        # Getting selected list title
-        self.listToDelete = list(self.titleList)[self.selectedFields[0]]
-        # Reset textfields values
-        self.titleEdit.setText("")
-        self.editor.setPlainText("")
-        # Deleting selected list
-        self.tempDict.pop(self.listToDelete, None)
-        self.titleList = self.tempDict.keys()
+        clearBox = QMessageBox(QMessageBox.Question, "Textable", "Do you really want to delete this lexical list?", QMessageBox.Yes | QMessageBox.No)
+        clearBox.show()
+        
+        # Getting the answer of the user
+        result = clearBox.exec_()
+        if result == QMessageBox.Yes:
+            # Getting selected list title
+            self.listToDelete = list(self.titleList)[self.selectedFields[0]]
+            # Reset textfields values
+            self.titleEdit.setText("")
+            self.editor.setPlainText("")
+            # Deleting selected list
+            self.tempDict.pop(self.listToDelete, None)
+            self.titleList = self.tempDict.keys()
+        else:
+            pass
+        
 
     ## OK ##
     def newLexicalField(self):
