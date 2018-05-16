@@ -48,8 +48,13 @@ import platform
 
 from unicodedata import normalize
 
-# Global variables
-defaultDict = {}
+# Global variables with exemple list
+defaultDict = {
+    "Éxemple-FR" : ["Je","suis","une","liste","de","mots"],
+    "Exemple-EN" : ["I","am","a","word","list"],
+    "Beispiel-DE" : ["Ich","bin","ein","Wort","Liste"],
+    "Esempio-IT" : ["Sono","una","lista","di","parole"]
+}
 
 class LexicalHunter(OWTextableBaseWidget):
     """Textable widget for identifying lexical fields in segments
@@ -82,7 +87,6 @@ class LexicalHunter(OWTextableBaseWidget):
     )
 
     savedDict = settings.Setting({})
-    lexicalDict = settings.Setting({})
     selectedFields = settings.Setting([])
     autoSend = settings.Setting(False)
     labelName = settings.Setting("Topic")
@@ -96,13 +100,10 @@ class LexicalHunter(OWTextableBaseWidget):
         self.inputSeg = None
         self.outputSeg = None
         self.titleLabels = []
-        # Put the saved dictionarys in the global variable defaultDict
-        defaultDict.update(self.savedDict)
-
-        ######TESTINGVARIABLESSTART######
-        #only for testing the output
-        # self.labelControl = gui.widgetLabel(self.controlArea, "[J'affiche des variables pour les controler]")
-        ######TESTINGVARIABLESEND#######
+        # Put the saved dictionarys, if exist, in the global variable defaultDict
+        if self.savedDict :
+            defaultDict.clear()
+            defaultDict.update(self.savedDict)
 
         # Next two instructions are helpers from TextableUtils. Corresponding
         # interface elements are declared here and actually drawn below (at
@@ -128,11 +129,11 @@ class LexicalHunter(OWTextableBaseWidget):
         self.titleListbox = gui.listBox(
             widget=titleLabelsList,
             master=self,
-            ########## selectedFields retourne un tabeau de int suivant la position dans selectedFields des listes selectionnees ########
             value="selectedFields",    # setting (list)
             labels="titleLabels",   # setting (list)
             callback=self.sendButton.settingsChanged,
-            tooltip="The list of lexical list that you want to use for annotation",
+            tooltip="The list of lexical list that you want\
+                to use for annotation",
         )
         self.titleListbox.setMinimumHeight(150)
         self.titleListbox.setSelectionMode(2)
@@ -154,29 +155,27 @@ class LexicalHunter(OWTextableBaseWidget):
             orientation="horizontal",
         )
 
-
-        ###### START NOTA BENNE ######
-
-        #A definire plus tard
-        #gui.separator(widget=optionsBox, height=3)
-
-        ##### END NOTA BENNE ######
-
         gui.rubber(self.controlArea)
 
         # Now Info box and Send button must be drawn...
         self.sendButton.draw()
         self.infoBox.draw()
 
-        self.getDefaultLists()
+        # Show the lists in the box
         self.setTitleList()
         # Send data if autoSend.
         self.sendButton.sendIf()
 
     def getDefaultLists(self):
-        """Gets default lexical lists stored in txt files"""
+        """ DEPRECATED
+        Gets default lexical lists stored in txt files """
         # Seting the path of the files...
-        __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
+        __location__ = os.path.realpath(
+            os.path.join(
+                os.getcwd(),
+                os.path.dirname(__file__)
+            )
+        )
         if platform.system() == "Windows":
             __location__ += r"\lexicalfields"
         else:
@@ -201,8 +200,8 @@ class LexicalHunter(OWTextableBaseWidget):
                 lexicName = re.sub('\.txt$', '', lexicName)
 
 
-                # Trying to open the files and store their content in a dictionnary
-                # then store all of theses in a list
+                # Trying to open the files and store their content in
+                # a dictionnary then store all of theses in a list
                 try:
                     fileHandle = codecs.open(fileName, encoding='utf-8')
                     fileContent = fileHandle.read()
@@ -219,8 +218,9 @@ class LexicalHunter(OWTextableBaseWidget):
 
 
     def setTitleList(self):
-        """Creates a list with each key of the default dictionnaries to display them on the list box
-        Be careful, the order really metter for the selectedTitles variable !"""
+        """Creates a list with each key of the default dictionnaries to display
+        them on the list box Be careful, the order really metter for the
+        selectedTitles variable !"""
         self.titleLabels = defaultDict.keys()
         # save the dictionnary used to display the list as a setting
         self.savedDict.clear()
@@ -241,12 +241,9 @@ class LexicalHunter(OWTextableBaseWidget):
         self.inputSeg = newInput
         self.infoBox.inputChanged()
         self.sendButton.sendIf()
-        ######## pour tester ! ########
-        #self.InputSeg = "test tes2 amour et biere"
 
     def sendData(self):
         """Compute result of widget processing and send to output"""
-        #self.labelControl.setText("selectedFields = " + str(self.selectedFields))
 
         # An input is needed
         if self.inputSeg == None:
@@ -414,7 +411,8 @@ class WidgetEditList(OWTextableBaseWidget):
         """Widget creator."""
 
         super().__init__()
-        # Variable to communicate with the base widjet by calling self.creator.vriable_name
+        # Variable to communicate with the base widjet by calling
+        # self.creator.vriable_name
 
         self.caller = caller
         # Other attributes...
@@ -430,14 +428,15 @@ class WidgetEditList(OWTextableBaseWidget):
 
         # User interface...
 
-    ##### CONTROL AREA #####
+        # CONTROL AREA #
         # Options box for the structure
         titleListBox = gui.widgetBox(
             widget=self.controlArea,
             box="Lists",
             orientation="horizontal",
         )
-        ### SAVE AREA (After the control one but need to be first for the savechange button) ###
+        # SAVE AREA
+        # (After the control one but need to be first for the savechange button)
         SaveBox = gui.widgetBox(
             widget=self.controlArea,
             box=None,
@@ -457,16 +456,16 @@ class WidgetEditList(OWTextableBaseWidget):
             callback=self.closeWindow,
             width=130,
         )
-        ### END OF SAVE AREA
+        # END OF SAVE AREA
 
         # List of Lexical list that the user can select
         self.titleLabelsList = gui.listBox(
             widget=titleListBox,
             master=self,
-            ########## selectedFields retourne un tabeau de int suivant la position dans selectedFields des listes selectionnees ########
             value="selectedFields",    # setting (list)
             labels="titleList",   # setting (list)
             tooltip="The list of lexical list that you want to use for annotation",
+            callback=self.updateGUI,
         )
         self.titleLabelsList.setMinimumHeight(300)
         self.titleLabelsList.setMinimumWidth(150)
@@ -531,7 +530,7 @@ class WidgetEditList(OWTextableBaseWidget):
             width=130,
         )
 
-    ##### MAIN AREA (edit list) #####
+        # MAIN AREA (edit list) #
         # structure ...
         listEditBox = gui.widgetBox(
             widget=self.mainArea,
@@ -546,7 +545,6 @@ class WidgetEditList(OWTextableBaseWidget):
             value="listTitle",
             label="List name",
             orientation="vertical",
-            callback=self.makeChange,
         )
 
         # structure ...
@@ -558,9 +556,9 @@ class WidgetEditList(OWTextableBaseWidget):
             spacing=0,
         )
 
-        #Editable text Field. Each line gonna be a enter of the lexical list selected
+        # Editable text Field. Each line gonna be a enter of
+        # the lexical list selected
         self.editor = QPlainTextEdit()
-        #self.editor.setPlainText(self.textFieldContent.decode('utf-8'))
         editBox.layout().addWidget(self.editor)
         self.editor.textChanged.connect(self.dontforgettosaveChange)
         self.editor.setMinimumHeight(300)
@@ -574,9 +572,6 @@ class WidgetEditList(OWTextableBaseWidget):
             width=100,
         )
 
-        #A definire plus tard
-        #gui.separator(widget=optionsBox, height=3)
-
         gui.rubber(self.controlArea)
 
         self.setTitleList()
@@ -585,7 +580,6 @@ class WidgetEditList(OWTextableBaseWidget):
         # Now Info box and Send button must be drawn...
         self.infoBox.draw()
 
-    ## OK ##
     def setEditContent(self):
         """Sets the lexical field informations when the user wants to edit it"""
         # Getting selected list title
@@ -600,12 +594,10 @@ class WidgetEditList(OWTextableBaseWidget):
         #self.CommitList.setDisabled(True)
         self.updateGUI()
 
-    ## OK ##
     def setTitleList(self):
         """Displays the lexical fields titles in the edit widget view"""
         self.titleList = self.tempDict.keys()
 
-    ## OK ##
     def clearList(self):
         """Clears the list of lexical fields"""
         # Reset textfields values
@@ -615,7 +607,6 @@ class WidgetEditList(OWTextableBaseWidget):
         self.tempDict.clear()
         self.setTitleList()
 
-    ## OK ##
     def deleteSelectedList(self):
         """Deletes selected lexical field"""
         # Getting selected list title
@@ -627,7 +618,6 @@ class WidgetEditList(OWTextableBaseWidget):
         self.tempDict.pop(self.listToDelete, None)
         self.titleList = self.tempDict.keys()
 
-    ## OK ##
     def newLexicalField(self):
         """Sets a new entry in the lexical fields dictionnary"""
         newDict = "New lexical field"
@@ -639,12 +629,6 @@ class WidgetEditList(OWTextableBaseWidget):
         self.tempDict[newDict] = ""
         self.setTitleList()
 
-    def makeChange(self):
-        pass
-        #"""Do the chane on the list"""
-        #self.infoBox.setText("je change les listes")
-
-    ## OK ##
     def saveEdit(self):
         """Saves the modifications made by the user on the list"""
         # Getting textfields values
@@ -666,7 +650,6 @@ class WidgetEditList(OWTextableBaseWidget):
 
         self.updateGUI()
 
-    ## OK ##
     def saveChanges(self):
         """Saves changes made by the user"""
         defaultDict.clear()
@@ -674,12 +657,10 @@ class WidgetEditList(OWTextableBaseWidget):
         self.hide()
         self.caller.setTitleList()
 
-    ## OK ##
     def closeWindow(self):
         """Cancels changes made by the user"""
         self.hide()
 
-    ## OK ##
     def importLexic(self):
         """Lets the user import a lexical field from a text file"""
 
@@ -725,8 +706,6 @@ class WidgetEditList(OWTextableBaseWidget):
             )
             return
 
-
-    ## OK ##
     def exportOneLexic(self):
         """Lets the user export the selected lexic to a text file"""
         # Opening file browser
@@ -738,10 +717,7 @@ class WidgetEditList(OWTextableBaseWidget):
 
         # Setting content to save
         exportTitle = list(self.titleList)[self.selectedFields[0]]
-        #exportContent = '\n'.join(self.tempDict[exportTitle])
         exportContent = self.tempDict[exportTitle]
-        #textFieldContent.replace('\r\n', '\n').replace('\r', '\n')
-        #exportContent = self.tempDict[exportTitle].replace('\r\n', '\n').replace('\r', '\n')
 
         # Saving lexic content
         if filePath:
@@ -761,8 +737,6 @@ class WidgetEditList(OWTextableBaseWidget):
                 QMessageBox.Ok
             )
 
-
-    ## OK ##
     def exportAllLexics(self):
         """Lets the user export all the lexics"""
         # Opening file browser
@@ -796,17 +770,18 @@ class WidgetEditList(OWTextableBaseWidget):
             )
 
     def dontforgettosaveChange(self):
-        """Diplay a warning message when the user edit the textfield of the list"""
-        self.infoBox.setText("Don't forget to save your changes after commiting your list", "warning")
+        """
+        Diplay a warning message when the user edit the textfield of the list
+        """
+        self.infoBox.setText("Don't forget to save your changes after \
+            commiting your list", "warning")
 
     def inputData(self, newInput):
         """Process incoming data."""
-        ######### traiter inputSeg comme le segement d entree ##########
         pass
 
     def sendData(self):
         """Compute result of widget processing and send to output"""
-        #self.labelControl.setText("selectedFields = " + str(self.selectedFields))
         pass
 
     def updateGUI(self):
@@ -844,12 +819,14 @@ class WidgetEditList(OWTextableBaseWidget):
             self.editor.setDisabled(True)
             self.titleEdit.setDisabled(True)
 
-    #def updateGUI(self):
-        #"""Update GUI state"""
+        if not self.selectedFields :
+            # Disabled elements if a list isn't selected
+            self.RemoveSelectedList.setDisabled(True)
+            self.ExportSelectedList.setDisabled(True)
 
-        #if len(self.titleLabels) > 0:
-            #self.selectedFields = self.selectedFields
 
+    # The following method needs to be copied verbatim in
+    # every Textable widget that sends a segmentation...
     def setCaption(self, title):
         if 'captionTitle' in dir(self):
             changed = title != self.captionTitle
