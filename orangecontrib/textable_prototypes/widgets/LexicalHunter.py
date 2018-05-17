@@ -50,7 +50,7 @@ from unicodedata import normalize
 
 # Global variables with exemple list
 defaultDict = {
-    "Éxemple-FR" : ["Je","suis","une","liste","de","mots"],
+    "Exemple-FR" : ["Je","suis","une","liste","de","mots"],
     "Exemple-EN" : ["I","am","a","word","list"],
     "Beispiel-DE" : ["Ich","bin","ein","Wort","Liste"],
     "Esempio-IT" : ["Sono","una","lista","di","parole"]
@@ -219,8 +219,8 @@ class LexicalHunter(OWTextableBaseWidget):
 
     def setTitleList(self):
         """Creates a list with each key of the default dictionnaries to display
-        them on the list box Be careful, the order really metter for the
-        selectedTitles variable !"""
+        them on the list box Be careful, the order really matter for the
+        selectedFields variable !"""
         self.titleLabels = defaultDict.keys()
         # save the dictionnary used to display the list as a setting
         self.savedDict.clear()
@@ -518,7 +518,7 @@ class WidgetEditList(OWTextableBaseWidget):
         self.ClearList = gui.button(
             widget=controlBox,
             master=self,
-            label="Clear",
+            label="Clear all",
             callback=self.clearList,
             width=130,
         )
@@ -591,7 +591,6 @@ class WidgetEditList(OWTextableBaseWidget):
         # Getting old title (to delete it later if the users wants to)
         self.oldTitle = self.listTitle
 
-        #self.CommitList.setDisabled(True)
         self.updateGUI()
 
     def setTitleList(self):
@@ -728,7 +727,7 @@ class WidgetEditList(OWTextableBaseWidget):
                 errors='xmlcharrefreplace',
             )
 
-            outputFile.write(exportContent)
+            outputFile.write('\n'.join(exportContent))
             outputFile.close()
             QMessageBox.information(
                 None,
@@ -780,10 +779,6 @@ class WidgetEditList(OWTextableBaseWidget):
         """Process incoming data."""
         pass
 
-    def sendData(self):
-        """Compute result of widget processing and send to output"""
-        pass
-
     def updateGUI(self):
         if self.titleEdit.text() != "":
             # Disabled elements
@@ -819,10 +814,11 @@ class WidgetEditList(OWTextableBaseWidget):
             self.editor.setDisabled(True)
             self.titleEdit.setDisabled(True)
 
-        if not self.selectedFields :
+        if not self.selectedFields:
             # Disabled elements if a list isn't selected
             self.RemoveSelectedList.setDisabled(True)
             self.ExportSelectedList.setDisabled(True)
+            self.EditList.setDisabled(True)
 
 
     # The following method needs to be copied verbatim in
