@@ -155,6 +155,13 @@ class LexicalHunter(OWTextableBaseWidget):
             orientation="horizontal",
         )
 
+        self.Color = gui.checkBox(
+            widget=self.controlArea,
+            master=self,
+            value = "HasColor"
+            label="Formate the texte",
+        )
+
         gui.rubber(self.controlArea)
 
         # Now Info box and Send button must be drawn...
@@ -481,25 +488,25 @@ class WidgetEditList(OWTextableBaseWidget):
         self.EditList = gui.button(
             widget=controlBox,
             master=self,
-            label="Edit",
+            label="Edit selected",
             callback=self.setEditContent,
             width=130,
             autoDefault=False,
         )
+        self.NewList = gui.button(
+            widget=controlBox,
+            master=self,
+            label="Create a list",
+            callback=self.newLexicalField,
+            width=130,
+        )
         self.ImportList = gui.button(
             widget=controlBox,
             master=self,
-            label="Import",
+            label="Import a list",
             callback=self.importLexic,
             width=130,
             autoDefault=False,
-        )
-        self.ExportList = gui.button(
-            widget=controlBox,
-            master=self,
-            label="Export All",
-            callback=self.exportAllLexics,
-            width=130,
         )
         self.ExportSelectedList = gui.button(
             widget=controlBox,
@@ -508,18 +515,11 @@ class WidgetEditList(OWTextableBaseWidget):
             callback=self.exportOneLexic,
             width=130,
         )
-        self.NewList = gui.button(
+        self.ExportList = gui.button(
             widget=controlBox,
             master=self,
-            label="New",
-            callback=self.newLexicalField,
-            width=130,
-        )
-        self.ClearList = gui.button(
-            widget=controlBox,
-            master=self,
-            label="Clear all",
-            callback=self.clearList,
+            label="Export All",
+            callback=self.exportAllLexics,
             width=130,
         )
         self.RemoveSelectedList = gui.button(
@@ -527,6 +527,13 @@ class WidgetEditList(OWTextableBaseWidget):
             master=self,
             label="Remove Selected",
             callback=self.deleteSelectedList,
+            width=130,
+        )
+        self.ClearList = gui.button(
+            widget=controlBox,
+            master=self,
+            label="Clear all",
+            callback=self.clearList,
             width=130,
         )
 
