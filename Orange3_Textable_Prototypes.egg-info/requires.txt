@@ -1,0 +1,7 @@
+Orange3>=3.7
+setuptools
+future
+LTTL>=2.0.6
+Orange3-Textable>=3.1.0b3
+gensim
+lxa5crab
