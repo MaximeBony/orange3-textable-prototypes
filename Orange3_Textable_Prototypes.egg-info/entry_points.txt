@@ -1,0 +1,12 @@
+[orange.canvas.help]
+html-index = orangecontrib.textable_prototypes:WIDGET_HELP_PATH
+
+[orange.widgets]
+Textable Prototypes = orangecontrib.textable_prototypes.widgets
+
+[orange.widgets.tutorials]
+textable_prototypes_tutorials = orangecontrib.textable_prototypes.tutorials
+
+[orange3.addon]
+textable_prototypes = orangecontrib.textable_prototypes
+

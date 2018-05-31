@@ -1,23 +1,22 @@
 <?xml version='1.0' encoding='utf-8'?>
-<scheme description="" title="" version="2.0">
+<scheme description="An exemple workflow for use of LexicalHunter. With an exemple segmentation analysis." title="LexicalHunter tutorial" version="2.0">
 	<nodes>
 		<node id="0" name="Lexical Hunter" position="(480.0, 172.0)" project_name="Orange3-Textable-Prototypes" qualified_name="orangecontrib.textable_prototypes.widgets.LexicalHunter.LexicalHunter" title="Lexical Hunter" version="" />
 		<node id="1" name="Text Field" position="(109.0, 86.0)" project_name="Orange3-Textable" qualified_name="_textable.widgets.OWTextableTextField.OWTextableTextField" title="Francais" version="" />
 		<node id="2" name="Text Field" position="(112.0, 186.0)" project_name="Orange3-Textable" qualified_name="_textable.widgets.OWTextableTextField.OWTextableTextField" title="English" version="" />
-		<node id="3" name="Text Field" position="(111.0, 293.0)" project_name="Orange3-Textable" qualified_name="_textable.widgets.OWTextableTextField.OWTextableTextField" title="Deutsh" version="" />
+		<node id="3" name="Text Field" position="(111.0, 293.0)" project_name="Orange3-Textable" qualified_name="_textable.widgets.OWTextableTextField.OWTextableTextField" title="Deutsch" version="" />
 		<node id="4" name="Text Field" position="(109.0, 405.0)" project_name="Orange3-Textable" qualified_name="_textable.widgets.OWTextableTextField.OWTextableTextField" title="Italiano" version="" />
 		<node id="5" name="Segment" position="(335.0, 213.0)" project_name="Orange3-Textable" qualified_name="_textable.widgets.OWTextableSegment.OWTextableSegment" title="You need to segment into word" version="" />
 		<node id="6" name="Merge" position="(235.0, 240.0)" project_name="Orange3-Textable" qualified_name="_textable.widgets.OWTextableMerge.OWTextableMerge" title="Merge" version="" />
 		<node id="7" name="Display" position="(634.0, 77.0)" project_name="Orange3-Textable" qualified_name="_textable.widgets.OWTextableDisplay.OWTextableDisplay" title="Display Full" version="" />
 		<node id="8" name="Display" position="(746.0, 131.0)" project_name="Orange3-Textable" qualified_name="_textable.widgets.OWTextableDisplay.OWTextableDisplay" title="Display EN" version="" />
-		<node id="9" name="Count" position="(645.0, 279.0)" project_name="Orange3-Textable" qualified_name="_textable.widgets.OWTextableCount.OWTextableCount" title="Count My Topic" version="" />
+		<node id="9" name="Count" position="(654.0, 287.0)" project_name="Orange3-Textable" qualified_name="_textable.widgets.OWTextableCount.OWTextableCount" title="Count My Topic" version="" />
 		<node id="10" name="Convert" position="(752.0, 224.0)" project_name="Orange3-Textable" qualified_name="_textable.widgets.OWTextableConvert.OWTextableConvert" title="Convert to frequency" version="" />
 		<node id="11" name="Data Table" position="(1067.0, 280.0)" project_name="Orange3" qualified_name="Orange.widgets.data.owtable.OWDataTable" title="Analysis" version="" />
-		<node id="12" name="Convert" position="(755.0, 329.0)" project_name="Orange3-Textable" qualified_name="_textable.widgets.OWTextableConvert.OWTextableConvert" title="Convert  to summarise" version="" />
-		<node id="13" name="Merge Data" position="(949.0, 280.0)" project_name="Orange3" qualified_name="Orange.widgets.data.owmergedata.OWMergeData" title="Merge Data" version="" />
-		<node id="14" name="Edit Domain" position="(858.0, 223.0)" project_name="Orange3" qualified_name="Orange.widgets.data.oweditdomain.OWEditDomain" title="Edit Domain" version="" />
-		<node id="15" name="Edit Domain" position="(863.0, 329.0)" project_name="Orange3" qualified_name="Orange.widgets.data.oweditdomain.OWEditDomain" title="Edit Domain (1)" version="" />
-		<node id="16" name="Select" position="(635.0, 171.0)" project_name="Orange3-Textable" qualified_name="_textable.widgets.OWTextableSelect.OWTextableSelect" title="Select a list" version="" />
+		<node id="12" name="Merge Data" position="(949.0, 280.0)" project_name="Orange3" qualified_name="Orange.widgets.data.owmergedata.OWMergeData" title="Merge Data" version="" />
+		<node id="13" name="Edit Domain" position="(858.0, 223.0)" project_name="Orange3" qualified_name="Orange.widgets.data.oweditdomain.OWEditDomain" title="Edit Domain" version="" />
+		<node id="14" name="Edit Domain" position="(790.0, 330.0)" project_name="Orange3" qualified_name="Orange.widgets.data.oweditdomain.OWEditDomain" title="Edit Domain (1)" version="" />
+		<node id="15" name="Select" position="(635.0, 171.0)" project_name="Orange3-Textable" qualified_name="_textable.widgets.OWTextableSelect.OWTextableSelect" title="Select a list" version="" />
 	</nodes>
 	<links>
 		<link enabled="true" id="0" sink_channel="Word segmentation" sink_node_id="0" source_channel="Segmented data" source_node_id="5" />
@@ -29,14 +28,13 @@
 		<link enabled="true" id="6" sink_channel="Segmentation" sink_node_id="7" source_channel="Segmentation with annotations" source_node_id="0" />
 		<link enabled="true" id="7" sink_channel="Segmentation" sink_node_id="9" source_channel="Segmentation with annotations" source_node_id="0" />
 		<link enabled="true" id="8" sink_channel="Textable table" sink_node_id="10" source_channel="Textable pivot crosstab" source_node_id="9" />
-		<link enabled="true" id="9" sink_channel="Textable table" sink_node_id="12" source_channel="Textable pivot crosstab" source_node_id="9" />
-		<link enabled="true" id="10" sink_channel="Data" sink_node_id="11" source_channel="Data" source_node_id="13" />
-		<link enabled="true" id="11" sink_channel="Data" sink_node_id="14" source_channel="Orange table" source_node_id="10" />
-		<link enabled="true" id="12" sink_channel="Data" sink_node_id="15" source_channel="Orange table" source_node_id="12" />
-		<link enabled="true" id="13" sink_channel="Extra Data" sink_node_id="13" source_channel="Data" source_node_id="15" />
-		<link enabled="true" id="14" sink_channel="Data" sink_node_id="13" source_channel="Data" source_node_id="14" />
-		<link enabled="true" id="15" sink_channel="Segmentation" sink_node_id="8" source_channel="Selected data" source_node_id="16" />
-		<link enabled="true" id="16" sink_channel="Segmentation" sink_node_id="16" source_channel="Segmentation with annotations" source_node_id="0" />
+		<link enabled="true" id="9" sink_channel="Data" sink_node_id="11" source_channel="Data" source_node_id="12" />
+		<link enabled="true" id="10" sink_channel="Data" sink_node_id="13" source_channel="Orange table" source_node_id="10" />
+		<link enabled="true" id="11" sink_channel="Extra Data" sink_node_id="12" source_channel="Data" source_node_id="14" />
+		<link enabled="true" id="12" sink_channel="Data" sink_node_id="12" source_channel="Data" source_node_id="13" />
+		<link enabled="true" id="13" sink_channel="Segmentation" sink_node_id="8" source_channel="Selected data" source_node_id="15" />
+		<link enabled="true" id="14" sink_channel="Segmentation" sink_node_id="15" source_channel="Segmentation with annotations" source_node_id="0" />
+		<link enabled="true" id="15" sink_channel="Data" sink_node_id="14" source_channel="Orange table" source_node_id="9" />
 	</links>
 	<annotations>
 		<text font-family="Helvetica" font-size="16" id="0" rect="(32.0, 20.0, 198.0, 32.0)" type="text/plain">Create a segmentation</text>
@@ -56,151 +54,165 @@
 	</annotations>
 	<thumbnail />
 	<node_properties>
-		<properties format="pickle" node_id="0">gAN9cQAoWAgAAABhdXRvU2VuZHEBiFgJAAAAbGFiZWxOYW1lcQJYCAAAAE15IFRvcGljcQNYCQAA
-AHNhdmVkRGljdHEEfXEFKFgKAAAARXhlbXBsZS1GUnEGXXEHKFgCAAAASmVxCFgEAAAAc3Vpc3EJ
-WAMAAAB1bmVxClgFAAAAbGlzdGVxC1gCAAAAZGVxDFgEAAAAbW90c3ENZVgKAAAARXhlbXBsZS1F
-TnEOXXEPKFgBAAAASXEQWAIAAABhbXERWAEAAABhcRJYBAAAAHdvcmRxE1gEAAAAbGlzdHEUZVgL
-AAAAQmVpc3BpZWwtREVxFV1xFihYAwAAAEljaHEXWAMAAABiaW5xGFgDAAAAZWlucRlYBAAAAFdv
-cnRxGlgFAAAATGlzdGVxG2VYCgAAAEVzZW1waW8tSVRxHF1xHShYBAAAAFNvbm9xHlgDAAAAdW5h
-cR9YBQAAAGxpc3RhcSBYAgAAAGRpcSFYBgAAAHBhcm9sZXEiZVgEAAAATG92ZXEjXXEkKFgFAAAA
-RXZlcnlxJVgGAAAAdGhpbmdzcSZYBQAAAGFib3V0cSdYBAAAAGxvdmVxKFgEAAAAdGhhdHEpWAMA
-AAB5b3VxKlgEAAAAd2FudHErZXVYEwAAAHNhdmVkV2lkZ2V0R2VvbWV0cnlxLEMyAdnQywACAAAA
-AAAAAAAAAAAAAPcAAAFvAAAACAAAAB4AAADvAAABZwAAAAAAAAAAB4BxLVgOAAAAc2VsZWN0ZWRG
-aWVsZHNxLmNjb3B5cmVnCl9yZWNvbnN0cnVjdG9yCnEvY2J1aWx0aW5zCmxpc3QKcTBoMCmHcTFS
-cTIoSwBLAUsDSwRlWAQAAAB1dWlkcTNYJAAAADk5MzM2ZDgzLTc4NGEtNDBlMy05ODViLWQ1YWVj
-NWJjYWM2MnE0WAsAAABfX3ZlcnNpb25fX3E1SwFYIQAAAF9UZXh0YWJsZVV0aWxzX3NldHRpbmdz
-X3ZlcnNpb25fX3E2SwBLAIZxN3Uu
+		<properties format="pickle" node_id="0">gAN9cQAoWAgAAABhdXRvU2VuZHEBiFgSAAAAY29udHJvbEFyZWFWaXNpYmxlcQKIWAkAAABsYWJl
+bE5hbWVxA1gIAAAATXkgVG9waWNxBFgJAAAAc2F2ZWREaWN0cQV9cQYoWAoAAABFeGVtcGxlLUZS
+cQddcQgoWAIAAABKZXEJWAQAAABzdWlzcQpYAwAAAHVuZXELWAUAAABsaXN0ZXEMWAIAAABkZXEN
+WAQAAABtb3RzcQ5lWAoAAABFeGVtcGxlLUVOcQ9dcRAoWAEAAABJcRFYAgAAAGFtcRJYAQAAAGFx
+E1gEAAAAd29yZHEUWAQAAABsaXN0cRVlWAsAAABCZWlzcGllbC1ERXEWXXEXKFgDAAAASWNocRhY
+AwAAAGJpbnEZWAMAAABlaW5xGlgEAAAAV29ydHEbWAUAAABMaXN0ZXEcZVgKAAAARXNlbXBpby1J
+VHEdXXEeKFgEAAAAU29ub3EfWAMAAAB1bmFxIFgFAAAAbGlzdGFxIVgCAAAAZGlxIlgGAAAAcGFy
+b2xlcSNlWAQAAABMb3ZlcSRdcSUoWAUAAABFdmVyeXEmWAYAAAB0aGluZ3NxJ1gFAAAAYWJvdXRx
+KFgEAAAAbG92ZXEpWAQAAAB0aGF0cSpYAwAAAHlvdXErWAQAAAB3YW50cSxldVgTAAAAc2F2ZWRX
+aWRnZXRHZW9tZXRyeXEtQzIB2dDLAAIAAAAAAyUAAAFZAAAEGAAAAuEAAAMlAAABdQAABBgAAALh
+AAAAAAAAAAAHgHEuWA4AAABzZWxlY3RlZEZpZWxkc3EvY2NvcHlyZWcKX3JlY29uc3RydWN0b3IK
+cTBjYnVpbHRpbnMKbGlzdApxMWgxKYdxMlJxMyhLAEsBSwNLBGVYBAAAAHV1aWRxNFgkAAAAOTkz
+MzZkODMtNzg0YS00MGUzLTk4NWItZDVhZWM1YmNhYzYycTVYCwAAAF9fdmVyc2lvbl9fcTZLAVgh
+AAAAX1RleHRhYmxlVXRpbHNfc2V0dGluZ3NfdmVyc2lvbl9fcTdLAEsAhnE4dS4=
 </properties>
-		<properties format="literal" node_id="1">{'autoSend': True, 'encoding': 'utf-8', 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x1b\x00\x00\x01G\x00\x00\x00\x08\x00\x00\x00\x1e\x00\x00\x01\x13\x00\x00\x01?\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80', 'textFieldContent': b"1. Introduire son texte ici ou via le widget Text Files ou URLs.\n2. Segmenter en mots le texte.\n3. Selectionner une liste dans le widget Lexical Hunter. Vous pouvez cr\xc3\xa9er vos listes, en importer ou les \xc3\xa9diter en appuyant sur le boutton Edit lists.\n4. Choisissez un nom pour la cl\xc3\xa9 d'annotation puis cliquez sur send.\n5. Vos segments d'entr\xc3\xa9e pr\xc3\xa9sents dans une liste seront annot\xc3\xa9s avec le nom de la liste \xc3\xa0 laquelle ils appartiennent. __None__ est la valeur par defaut. ", 'uuid': '606348ab-d03b-40ec-b837-99bd20a32337', '__version__': 1, '_TextableUtils_settings_version__': (0, 13)}</properties>
-		<properties format="literal" node_id="2">{'autoSend': True, 'encoding': 'utf-8', 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x02\x00\x00\x00\x00\x02\xec\x00\x00\x01\xa9\x00\x00\x04\x07\x00\x00\x02\xf0\x00\x00\x02\xf4\x00\x00\x01\xc7\x00\x00\x03\xff\x00\x00\x02\xe8\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80', 'textFieldContent': b'1. Enter your text here or via the Text Files or URLs widget.\n2. Segment the text into words.\n3. Select a list in the Lexical Hunter widget. You can create your lists, import or edit them by pressing the Edit lists button.\n4. Choose a name for the annotation key and click send.\n5. Your input segments present in a list will be annotated with the name of the list to which they belong. __None__ is the default value.', 'uuid': '70f17f4f-5697-4f0c-bd97-e74f42380bb6', '__version__': 1, '_TextableUtils_settings_version__': (0, 13)}</properties>
-		<properties format="literal" node_id="3">{'autoSend': True, 'encoding': 'utf-8', 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x02\x00\x00\x00\x00\x02\xe0\x00\x00\x01\x9f\x00\x00\x03\xfb\x00\x00\x02\xe6\x00\x00\x02\xe8\x00\x00\x01\xbd\x00\x00\x03\xf3\x00\x00\x02\xde\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80', 'textFieldContent': b'1. Geben Sie Ihren Text hier oder \xc3\xbcber das Widget Text Files oder URLs ein.\n2. Teilen Sie den Text in Worte.\n3. W\xc3\xa4hlen Sie im Widget Lexical Hunter eine Liste aus. Sie k\xc3\xb6nnen Ihre Listen erstellen, importieren oder bearbeiten, indem Sie auf die Schaltfl\xc3\xa4che Edit lists klicken.\n4. W\xc3\xa4hlen Sie einen Namen f\xc3\xbcr den Anmerkungsschl\xc3\xbcssel und klicken Sie auf Send.\n5. Ihre in einer Liste vorhandenen Eingabesegmente werden mit dem Namen der Liste versehen, zu der sie geh\xc3\xb6ren. __None__ ist der Standardwert.', 'uuid': 'da4dbc00-d4ec-458a-9859-db55f8f586f5', '__version__': 1, '_TextableUtils_settings_version__': (0, 13)}</properties>
-		<properties format="literal" node_id="4">{'autoSend': True, 'encoding': 'utf-8', 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x02\x00\x00\x00\x00\x02\xbc\x00\x00\x01\xb0\x00\x00\x03\xd7\x00\x00\x02\xf7\x00\x00\x02\xc4\x00\x00\x01\xce\x00\x00\x03\xcf\x00\x00\x02\xef\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80', 'textFieldContent': b'1. Inserisci il tuo testo qui o tramite il widget Text Field o URLs.\n2. Segmenta in parole il testo.\n3. Selezionare una lista nel widget Lexical Hunter. Puoi creare i tuoi elenchi, importarli o modificarli premendo il pulsante Edit lists.\n4. Scegli un nome per la chiave di annotazione e fai clic su Send.\n5. I segmenti di input presenti in una lista saranno annotati con il nome della lista a cui appartengono. __None__ \xc3\xa8 il valore predefinito.', 'uuid': 'e628e65a-4576-4d83-9cf0-87d1bafe5727', '__version__': 1, '_TextableUtils_settings_version__': (0, 13)}</properties>
-		<properties format="literal" node_id="5">{'autoNumber': False, 'autoNumberKey': 'num', 'autoSend': True, 'displayAdvancedSettings': False, 'importAnnotations': True, 'lastLocation': '.', 'mergeDuplicates': False, 'mode': 'Tokenize', 'regex': '', 'regexes': [], 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x02\x00\x00\x00\x00\x01\xd3\x00\x00\x00\x16\x00\x00\x02\xbd\x00\x00\x00\xe2\x00\x00\x01\xd3\x00\x00\x00,\x00\x00\x02\xbd\x00\x00\x00\xe2\x00\x00\x00\x00\x00\x00\x00\x00\x05\x00', 'segmentType': 'Segment into words', 'uuid': '50ba7e56-b6fe-460b-a50e-ff5554325ff4', '__version__': 1, '_TextableUtils_settings_version__': (0, 21)}</properties>
-		<properties format="literal" node_id="6">{'autoNumber': False, 'autoNumberKey': 'num', 'autoSend': True, 'copyAnnotations': True, 'importLabels': True, 'labelKey': 'Langage', 'mergeDuplicates': False, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x02\x00\x00\x00\x00\x01\xcf\x00\x00\x00\xd8\x00\x00\x03\x1c\x00\x00\x01\xe5\x00\x00\x01\xcf\x00\x00\x00\xee\x00\x00\x03\x1c\x00\x00\x01\xe5\x00\x00\x00\x00\x00\x00\x00\x00\x05\x00', 'uuid': 'cc4a288f-0046-4cd0-9919-bd56e6042e7e', '__version__': 1, '_TextableUtils_settings_version__': (0, 21)}</properties>
-		<properties format="literal" node_id="7">{'autoSend': True, 'customFormat': '%(__content__)s', 'customFormatting': False, 'displayAdvancedSettings': False, 'encoding': 'utf8', 'footer': '', 'header': '', 'lastLocation': '.', 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x17\x00\x00\x01f\x00\x00\x00\x08\x00\x00\x00\x1e\x00\x00\x01\x0f\x00\x00\x01^\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80', 'segmentDelimiter': ' ', 'uuid': 'c28051b0-bcf8-44d3-a7b4-e83ede2180f1', '__version__': 1, '_TextableUtils_settings_version__': (0, 16)}</properties>
-		<properties format="literal" node_id="8">{'autoSend': True, 'customFormat': '%(__content__)s', 'customFormatting': False, 'displayAdvancedSettings': False, 'encoding': 'utf8', 'footer': '', 'header': '', 'lastLocation': '.', 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x17\x00\x00\x01f\x00\x00\x00\x08\x00\x00\x00\x1e\x00\x00\x01\x0f\x00\x00\x01^\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80', 'segmentDelimiter': ' ', 'uuid': '57984958-e691-40a2-89f2-ca8b752def7d', '__version__': 1, '_TextableUtils_settings_version__': (0, 16)}</properties>
-		<properties format="pickle" node_id="9">gAN9cQAoWAgAAABhdXRvU2VuZHEBiFgNAAAAaW50cmFTZXFEZWxpbXECWAAAAABxA1gNAAAAbWVy
-Z2VDb250ZXh0c3EEiVgMAAAAbWVyZ2VTdHJpbmdzcQWJWBMAAABzYXZlZFdpZGdldEdlb21ldHJ5
-cQZDMgHZ0MsAAgAAAAAAAAAAAAAAAAF0AAABWgAAAAgAAAAeAAABbAAAAVIAAAAAAAAAAAeAcQdY
-DgAAAHNlcXVlbmNlTGVuZ3RocQhLAVgNAAAAdW5pdFBvc01hcmtlcnEJWAEAAABfcQpYBAAAAHV1
-aWRxC05YCwAAAF9fdmVyc2lvbl9fcQxLAVgQAAAAY29udGV4dF9zZXR0aW5nc3ENXXEOKGNPcmFu
-Z2Uud2lkZ2V0cy5zZXR0aW5ncwpDb250ZXh0CnEPKYFxEH1xEShYBAAAAHRpbWVxEkdB1r+lOcU9
-5FgGAAAAdmFsdWVzcRN9cRQoWAkAAABfY29udGV4dHNxFUr/////WBQAAABjb250ZXh0QW5ub3Rh
-dGlvbktleXEWWAYAAAAobm9uZSlxF1gPAAAAbGVmdENvbnRleHRTaXplcRhLAFgEAAAAbW9kZXEZ
-WAoAAABObyBjb250ZXh0cRpYEAAAAHJpZ2h0Q29udGV4dFNpemVxG0sAWBEAAAB1bml0QW5ub3Rh
-dGlvbktleXEcWAgAAABNeSBUb3BpY3EdWAUAAAB1bml0c3EeSwBYCgAAAHdpbmRvd1NpemVxH0sB
-WA0AAABzZWdtZW50YXRpb25zcSBdcSFYDgAAAExleGljYWwgSHVudGVycSJYBwAAAExhbmdhZ2Vx
-I1gIAAAATXkgVG9waWNxJIZxJVgkAAAAOTkzMzZkODMtNzg0YS00MGUzLTk4NWItZDVhZWM1YmNh
-YzYycSaHcSdhaAxLAXVYBwAAAGVuY29kZWRxKE5oIYZxKXViaA8pgXEqfXErKGgSR0HWv3rOJz9j
-aBN9cSwoWAkAAABfY29udGV4dHNxLUr/////WBQAAABjb250ZXh0QW5ub3RhdGlvbktleXEuaBdY
-DwAAAGxlZnRDb250ZXh0U2l6ZXEvSwBYBAAAAG1vZGVxMGgaWBAAAAByaWdodENvbnRleHRTaXpl
-cTFLAFgRAAAAdW5pdEFubm90YXRpb25LZXlxMmgDWAUAAAB1bml0c3EzSv////9YCgAAAHdpbmRv
-d1NpemVxNEsBWA0AAABzZWdtZW50YXRpb25zcTVdcTZoDEsBdWgoWCQAAAA1MTg0MWM2NS1jYWFk
-LTRkYzktYWM0ZC0wZDhmMzRiYzhhYmVxN2g2hnE4dWJoDymBcTl9cTooaBJHQda/ehjvOQhoE31x
-OyhoLUr/////aC5oF2gvSwBoMGgaaDFLAGgyaB1oM0sAaDRLAWg1XXE8WA4AAABMZXhpY2FsIEh1
-bnRlcnE9WAgAAABNeSBUb3BpY3E+WAsAAABpbnB1dF9sYWJlbHE/hnFAWCQAAAA5OTMzNmQ4My03
-ODRhLTQwZTMtOTg1Yi1kNWFlYzViY2FjNjJxQYdxQmFoDEsBdWgoaDdoPIZxQ3ViaA8pgXFEfXFF
-KGgSR0HWv3oTTuD0aBN9cUYoaC1K/////2guaBdoL0sAaDBoGmgxSwBoMmgdaDNLAGg0SwFoNV1x
-R2g9aD6FcUhoQYdxSWFoDEsBdWgoaDdoR4ZxSnViZVghAAAAX1RleHRhYmxlVXRpbHNfc2V0dGlu
-Z3NfdmVyc2lvbl9fcUtLAEsVhnFMdS4=
+		<properties format="literal" node_id="1">{'autoSend': True, 'controlAreaVisible': True, 'encoding': 'utf-8', 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x1b\x00\x00\x01G\x00\x00\x00\x08\x00\x00\x00\x1e\x00\x00\x01\x13\x00\x00\x01?\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80', 'textFieldContent': b"1. Introduire son texte ici ou via le widget Text Files ou URLs.\n2. Segmenter en mots le texte.\n3. Selectionner une liste dans le widget Lexical Hunter. Vous pouvez cr\xc3\xa9er vos listes, en importer ou les \xc3\xa9diter en appuyant sur le boutton Edit lists.\n4. Choisissez un nom pour la cl\xc3\xa9 d'annotation puis cliquez sur send.\n5. Vos segments d'entr\xc3\xa9e pr\xc3\xa9sents dans une liste seront annot\xc3\xa9s avec le nom de la liste \xc3\xa0 laquelle ils appartiennent. __None__ est la valeur par defaut. ", 'uuid': '606348ab-d03b-40ec-b837-99bd20a32337', '__version__': 1, '_TextableUtils_settings_version__': (0, 13)}</properties>
+		<properties format="literal" node_id="2">{'autoSend': True, 'controlAreaVisible': True, 'encoding': 'utf-8', 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x02\x00\x00\x00\x00\x02\xec\x00\x00\x01\xa9\x00\x00\x06\x89\x00\x00\x03h\x00\x00\x02\xec\x00\x00\x01\xc5\x00\x00\x06\x89\x00\x00\x03h\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80', 'textFieldContent': b'1. Enter your text here or via the Text Files or URLs widget.\n2. Segment the text into words.\n3. Select a list in the Lexical Hunter widget. You can create your lists, import or edit them by pressing the Edit lists button.\n4. Choose a name for the annotation key and click send.\n5. Your input segments present in a list will be annotated with the name of the list to which they belong. __None__ is the default value.', 'uuid': '70f17f4f-5697-4f0c-bd97-e74f42380bb6', '__version__': 1, '_TextableUtils_settings_version__': (0, 13)}</properties>
+		<properties format="literal" node_id="3">{'autoSend': True, 'controlAreaVisible': True, 'encoding': 'utf-8', 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x02\x00\x00\x00\x00\x02\xe0\x00\x00\x01\x9f\x00\x00\x03\xfb\x00\x00\x02\xe6\x00\x00\x02\xe8\x00\x00\x01\xbd\x00\x00\x03\xf3\x00\x00\x02\xde\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80', 'textFieldContent': b'1. Geben Sie Ihren Text hier oder \xc3\xbcber das Widget Text Files oder URLs ein.\n2. Teilen Sie den Text in Worte.\n3. W\xc3\xa4hlen Sie im Widget Lexical Hunter eine Liste aus. Sie k\xc3\xb6nnen Ihre Listen erstellen, importieren oder bearbeiten, indem Sie auf die Schaltfl\xc3\xa4che Edit lists klicken.\n4. W\xc3\xa4hlen Sie einen Namen f\xc3\xbcr den Anmerkungsschl\xc3\xbcssel und klicken Sie auf Send.\n5. Ihre in einer Liste vorhandenen Eingabesegmente werden mit dem Namen der Liste versehen, zu der sie geh\xc3\xb6ren. __None__ ist der Standardwert.', 'uuid': 'da4dbc00-d4ec-458a-9859-db55f8f586f5', '__version__': 1, '_TextableUtils_settings_version__': (0, 13)}</properties>
+		<properties format="literal" node_id="4">{'autoSend': True, 'controlAreaVisible': True, 'encoding': 'utf-8', 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x02\x00\x00\x00\x00\x02\xbc\x00\x00\x01\xb0\x00\x00\x03\xd7\x00\x00\x02\xf7\x00\x00\x02\xc4\x00\x00\x01\xce\x00\x00\x03\xcf\x00\x00\x02\xef\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80', 'textFieldContent': b'1. Inserisci il tuo testo qui o tramite il widget Text Field o URLs.\n2. Segmenta in parole il testo.\n3. Selezionare una lista nel widget Lexical Hunter. Puoi creare i tuoi elenchi, importarli o modificarli premendo il pulsante Edit lists.\n4. Scegli un nome per la chiave di annotazione e fai clic su Send.\n5. I segmenti di input presenti in una lista saranno annotati con il nome della lista a cui appartengono. __None__ \xc3\xa8 il valore predefinito.', 'uuid': 'e628e65a-4576-4d83-9cf0-87d1bafe5727', '__version__': 1, '_TextableUtils_settings_version__': (0, 13)}</properties>
+		<properties format="literal" node_id="5">{'autoNumber': False, 'autoNumberKey': 'num', 'autoSend': True, 'controlAreaVisible': True, 'displayAdvancedSettings': False, 'importAnnotations': True, 'lastLocation': '.', 'mergeDuplicates': False, 'mode': 'Tokenize', 'regex': '', 'regexes': [], 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x02\x00\x00\x00\x00\x01\xd3\x00\x00\x00\x16\x00\x00\x02\xbd\x00\x00\x00\xe2\x00\x00\x01\xd3\x00\x00\x00,\x00\x00\x02\xbd\x00\x00\x00\xe2\x00\x00\x00\x00\x00\x00\x00\x00\x05\x00', 'segmentType': 'Segment into words', 'uuid': '50ba7e56-b6fe-460b-a50e-ff5554325ff4', '__version__': 1, '_TextableUtils_settings_version__': (0, 21)}</properties>
+		<properties format="literal" node_id="6">{'autoNumber': False, 'autoNumberKey': 'num', 'autoSend': True, 'controlAreaVisible': True, 'copyAnnotations': True, 'importLabels': True, 'labelKey': 'Language', 'mergeDuplicates': False, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x02\x00\x00\x00\x00\x02\xf5\x00\x00\x01\x84\x00\x00\x04I\x00\x00\x02\xb6\x00\x00\x02\xf5\x00\x00\x01\xa0\x00\x00\x04I\x00\x00\x02\xb6\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80', 'uuid': 'cc4a288f-0046-4cd0-9919-bd56e6042e7e', '__version__': 1, '_TextableUtils_settings_version__': (0, 21)}</properties>
+		<properties format="literal" node_id="7">{'autoSend': True, 'basicFormatHTML': True, 'controlAreaVisible': True, 'customFormat': '%(__content__)s', 'customFormatting': False, 'displayAdvancedSettings': False, 'encoding': 'utf8', 'footer': '', 'header': '', 'lastLocation': '.', 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x17\x00\x00\x01f\x00\x00\x00\x08\x00\x00\x00\x1e\x00\x00\x01\x0f\x00\x00\x01^\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80', 'segmentDelimiter': ' ', 'uuid': 'c28051b0-bcf8-44d3-a7b4-e83ede2180f1', '__version__': 1, '_TextableUtils_settings_version__': (0, 16)}</properties>
+		<properties format="literal" node_id="8">{'autoSend': True, 'basicFormatHTML': True, 'controlAreaVisible': True, 'customFormat': '%(__content__)s', 'customFormatting': False, 'displayAdvancedSettings': False, 'encoding': 'utf8', 'footer': '', 'header': '', 'lastLocation': '.', 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x17\x00\x00\x01f\x00\x00\x00\x08\x00\x00\x00\x1e\x00\x00\x01\x0f\x00\x00\x01^\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80', 'segmentDelimiter': ' ', 'uuid': '57984958-e691-40a2-89f2-ca8b752def7d', '__version__': 1, '_TextableUtils_settings_version__': (0, 16)}</properties>
+		<properties format="pickle" node_id="9">gAN9cQAoWAgAAABhdXRvU2VuZHEBiFgSAAAAY29udHJvbEFyZWFWaXNpYmxlcQKIWA0AAABpbnRy
+YVNlcURlbGltcQNYAAAAAHEEWA0AAABtZXJnZUNvbnRleHRzcQWJWAwAAABtZXJnZVN0cmluZ3Nx
+BolYEwAAAHNhdmVkV2lkZ2V0R2VvbWV0cnlxB0MyAdnQywACAAAAAALZAAABWQAABGUAAALiAAAC
+2QAAAXUAAARlAAAC4gAAAAAAAAAAB4BxCFgOAAAAc2VxdWVuY2VMZW5ndGhxCUsBWA0AAAB1bml0
+UG9zTWFya2VycQpYAQAAAF9xC1gEAAAAdXVpZHEMWCQAAAAyMGY4OGNlZS0yMzkwLTRlZmYtOTY5
+ZS0wODMxYjhjZmFhOTRxDVgLAAAAX192ZXJzaW9uX19xDksBWBAAAABjb250ZXh0X3NldHRpbmdz
+cQ9dcRAoY09yYW5nZS53aWRnZXRzLnNldHRpbmdzCkNvbnRleHQKcREpgXESfXETKFgEAAAAdGlt
+ZXEUR0HWw+1YwGeYWAYAAAB2YWx1ZXNxFX1xFihYCQAAAF9jb250ZXh0c3EXSv////9YFAAAAGNv
+bnRleHRBbm5vdGF0aW9uS2V5cRhYBgAAAChub25lKXEZWA8AAABsZWZ0Q29udGV4dFNpemVxGksA
+WAQAAABtb2RlcRtYCgAAAE5vIGNvbnRleHRxHFgQAAAAcmlnaHRDb250ZXh0U2l6ZXEdSwBYEQAA
+AHVuaXRBbm5vdGF0aW9uS2V5cR5YCAAAAE15IFRvcGljcR9YBQAAAHVuaXRzcSBLAFgKAAAAd2lu
+ZG93U2l6ZXEhSwFYDQAAAHNlZ21lbnRhdGlvbnNxIl1xI1gOAAAATGV4aWNhbCBIdW50ZXJxJFgI
+AAAATGFuZ3VhZ2VxJVgIAAAATXkgVG9waWNxJoZxJ1gkAAAAOTkzMzZkODMtNzg0YS00MGUzLTk4
+NWItZDVhZWM1YmNhYzYycSiHcSlhaA5LAXVYBwAAAGVuY29kZWRxKmgNaCOGcSt1YmgRKYFxLH1x
+LShoFEdB1sPtTfiai2gVfXEuKGgXSv////9oGGgZaBpLAGgbaBxoHUsAaB5YBgAAAChub25lKXEv
+aCBLAGghSwFoIl1xMGgkWAcAAABMYW5nYWdlcTFoJoZxMmgoh3EzYWgOSwF1aCpoDWgwhnE0dWJo
+ESmBcTV9cTYoaBRHQda/pTnFPeRoFX1xNyhYCQAAAF9jb250ZXh0c3E4Sv////9YFAAAAGNvbnRl
+eHRBbm5vdGF0aW9uS2V5cTlYBgAAAChub25lKXE6WA8AAABsZWZ0Q29udGV4dFNpemVxO0sAWAQA
+AABtb2RlcTxYCgAAAE5vIGNvbnRleHRxPVgQAAAAcmlnaHRDb250ZXh0U2l6ZXE+SwBYEQAAAHVu
+aXRBbm5vdGF0aW9uS2V5cT9YCAAAAE15IFRvcGljcUBYBQAAAHVuaXRzcUFLAFgKAAAAd2luZG93
+U2l6ZXFCSwFYDQAAAHNlZ21lbnRhdGlvbnNxQ11xRFgOAAAATGV4aWNhbCBIdW50ZXJxRVgHAAAA
+TGFuZ2FnZXFGWAgAAABNeSBUb3BpY3FHhnFIWCQAAAA5OTMzNmQ4My03ODRhLTQwZTMtOTg1Yi1k
+NWFlYzViY2FjNjJxSYdxSmFoDksBdWgqTmhEhnFLdWJoESmBcUx9cU0oaBRHQda/es4nP2NoFX1x
+TihYCQAAAF9jb250ZXh0c3FPSv////9YFAAAAGNvbnRleHRBbm5vdGF0aW9uS2V5cVBoOlgPAAAA
+bGVmdENvbnRleHRTaXplcVFLAFgEAAAAbW9kZXFSaD1YEAAAAHJpZ2h0Q29udGV4dFNpemVxU0sA
+WBEAAAB1bml0QW5ub3RhdGlvbktleXFUaARYBQAAAHVuaXRzcVVK/////1gKAAAAd2luZG93U2l6
+ZXFWSwFYDQAAAHNlZ21lbnRhdGlvbnNxV11xWGgOSwF1aCpYJAAAADUxODQxYzY1LWNhYWQtNGRj
+OS1hYzRkLTBkOGYzNGJjOGFiZXFZaFiGcVp1YmgRKYFxW31xXChoFEdB1r96GO85CGgVfXFdKGhP
+Sv////9oUGg6aFFLAGhSaD1oU0sAaFRoQGhVSwBoVksBaFddcV5YDgAAAExleGljYWwgSHVudGVy
+cV9YCAAAAE15IFRvcGljcWBYCwAAAGlucHV0X2xhYmVscWGGcWJYJAAAADk5MzM2ZDgzLTc4NGEt
+NDBlMy05ODViLWQ1YWVjNWJjYWM2MnFjh3FkYWgOSwF1aCpoWWhehnFldWJoESmBcWZ9cWcoaBRH
+Qda/ehNO4PRoFX1xaChoT0r/////aFBoOmhRSwBoUmg9aFNLAGhUaEBoVUsAaFZLAWhXXXFpaF9o
+YIVxamhjh3FrYWgOSwF1aCpoWWhphnFsdWJlWCEAAABfVGV4dGFibGVVdGlsc19zZXR0aW5nc192
+ZXJzaW9uX19xbUsASxWGcW51Lg==
 </properties>
-		<properties format="literal" node_id="10">{'associationBias': 'none', 'autoSend': True, 'colDelimiter_idx': 0, 'conversionType': 'association matrix', 'convert': False, 'displayAdvancedSettings': True, 'exportEncoding': 'utf8', 'includeOrangeHeaders': False, 'lastLocation': '.', 'normalize': True, 'normalizeMode': 'columns', 'normalizeType': 'L1', 'reformat': False, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x02\x00\x00\x00\x00\x01\x86\x00\x00\x00|\x00\x00\x03g\x00\x00\x02\xe8\x00\x00\x01\x86\x00\x00\x00\x92\x00\x00\x03g\x00\x00\x02\xe8\x00\x00\x00\x00\x00\x00\x00\x00\x05\x00', 'sortCols': False, 'sortColsReverse': False, 'sortRows': False, 'sortRowsReverse': False, 'transpose': False, 'unweighted': False, 'uuid': '9e04afe5-c725-49f4-8991-1f0a23f0da53', '__version__': 1, '_TextableUtils_settings_version__': (0, 19)}</properties>
-		<properties format="pickle" node_id="11">gAN9cQAoWAsAAABhdXRvX2NvbW1pdHEBiFgOAAAAY29sb3JfYnlfY2xhc3NxAohYDgAAAGRpc3Rf
-Y29sb3JfUkdCcQMoS9xL3EvcS/90cQRYEwAAAHNhdmVkV2lkZ2V0R2VvbWV0cnlxBUMyAdnQywAC
-AAAAAAAAAAAAAAAAAy8AAAIZAAAACAAAAB4AAAMnAAACEQAAAAAAAAAAB4BxBlgLAAAAc2VsZWN0
-X3Jvd3NxB4hYFQAAAHNob3dfYXR0cmlidXRlX2xhYmVsc3EIiFgSAAAAc2hvd19kaXN0cmlidXRp
-b25zcQmJWAsAAABfX3ZlcnNpb25fX3EKSwFYEAAAAGNvbnRleHRfc2V0dGluZ3NxC11xDChjT3Jh
-bmdlLndpZGdldHMuc2V0dGluZ3MKQ29udGV4dApxDSmBcQ59cQ8oWAQAAAB0aW1lcRBHQda/pToJ
-FO9YBgAAAHZhbHVlc3ERfXESKFgNAAAAc2VsZWN0ZWRfY29sc3ETXXEUWA0AAABzZWxlY3RlZF9y
-b3dzcRVdcRZoCksBdVgKAAAAYXR0cmlidXRlc3EXfXEYKFgEAAAARnJlcXEZSwJYBQAAAENvdW50
-cRpLAnVYBQAAAG1ldGFzcRt9cRxYDgAAAG9yZGVyZWRfZG9tYWlucR1dcR4oaBlLAoZxH2gaSwKG
-cSBldWJoDSmBcSF9cSIoaBBHQda/ex15yJtoEX1xIyhYDQAAAHNlbGVjdGVkX2NvbHNxJF1xJUsA
-YVgNAAAAc2VsZWN0ZWRfcm93c3EmXXEnSwBhaApLAXVoF31xKChYBAAAAEZyZXFxKUsCWAUAAABD
-b3VudHEqSwJ1aBt9cStYDgAAAExleGljYWwgRmllbGRzcSxLA3N1YmgNKYFxLX1xLihoEEdB1r94
-rPj0LGgRfXEvKGgkXXEwKEsASwFlaCZdcTFLAGFoCksBdWgXfXEyaClLAnNoG31xMyhoLEsDWAUA
-AABDb3VudHE0SwN1dWJoDSmBcTV9cTYoaBBHQda/eJ/2CpZoEX1xNyhoJF1xOGgmXXE5aApLAXVo
-F31xOlgOAAAATGV4aWNhbCBGaWVsZHNxO0sCc2gbfXE8KFgLAAAARnLDqXF1ZW5jZXNxPUsDaDRL
-A3V1YmgNKYFxPn1xPyhoEEdB1r94kuWA/mgRfXFAKGgkXXFBKEsASwFlaCZdcUJLAGFoCksBdWgX
-fXFDaDtLAnNoG31xRGg9SwNzdWJoDSmBcUV9cUYoaBBHQda/eIzUdmRoEX1xRyhoJF1xSChLAEsB
-ZWgmXXFJSwBhaApLAXVoF31xSihoO0sCWAoAAABfX2dsb2JhbF9fcUtLAnVoG31xTChoPUsDWAgA
-AABfX3VuaXRfX3FNSwN1dWJoDSmBcU59cU8oaBBHQda/eItGbCtoEX1xUChoJF1xUShLAEsBZWgm
-XXFSSwBhaApLAXVoF31xUyhYDgAAAExleGljYWwgRmllbGRzcVRLAmhLSwJ1aBt9cVUoaDRLA2hN
-SwN1dWJoDSmBcVZ9cVcoaBBHQda/eD1XoxpoEX1xWChoJF1xWWgmXXFaaApLAXVoF31xW2hLSwJz
-aBt9cVxoTUsDc3ViaA0pgXFdfXFeKGgQR0HWv3f5KIDYaBF9cV8oaCRdcWAoSwBLAWVoJl1xYUsA
-YWgKSwF1aBd9cWIoWAgAAABfX05vbmVfX3FjSwJYCgAAAEV4ZW1wbGUtRlJxZEsCWAoAAABFeGVt
-cGxlLUVOcWVLAlgKAAAARXNlbXBpby1JVHFmSwJ1aBt9cWdYCwAAAF9fY29udGV4dF9fcWhLA3N1
-YmgNKYFxaX1xaihoEEdB1r939Mwx6GgRfXFrKGgkXXFsKEsASwFlaCZdcW1LAGFoCksBdWgXfXFu
-KFgGAAAAX19pZF9fcW9LAmhoXXFwaEthaE1dcXEoaGNoZGhlaGZlWAoAAABfX3dlaWdodF9fcXJL
-AnVoG31xc3ViZXUu
+		<properties format="literal" node_id="10">{'associationBias': 'none', 'autoSend': True, 'colDelimiter_idx': 0, 'controlAreaVisible': True, 'conversionType': 'association matrix', 'convert': False, 'displayAdvancedSettings': True, 'exportEncoding': 'utf8', 'includeOrangeHeaders': False, 'lastLocation': '.', 'normalize': True, 'normalizeMode': 'columns', 'normalizeType': 'L1', 'reformat': False, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x02\x00\x00\x00\x00\x01\x86\x00\x00\x00|\x00\x00\x03g\x00\x00\x02\xe8\x00\x00\x01\x86\x00\x00\x00\x92\x00\x00\x03g\x00\x00\x02\xe8\x00\x00\x00\x00\x00\x00\x00\x00\x05\x00', 'sortCols': False, 'sortColsReverse': False, 'sortRows': False, 'sortRowsReverse': False, 'transpose': False, 'unweighted': False, 'uuid': '9e04afe5-c725-49f4-8991-1f0a23f0da53', '__version__': 1, '_TextableUtils_settings_version__': (0, 19)}</properties>
+		<properties format="pickle" node_id="11">gAN9cQAoWAsAAABhdXRvX2NvbW1pdHEBiFgOAAAAY29sb3JfYnlfY2xhc3NxAohYEgAAAGNvbnRy
+b2xBcmVhVmlzaWJsZXEDiFgOAAAAZGlzdF9jb2xvcl9SR0JxBChL3EvcS9xL/3RxBVgTAAAAc2F2
+ZWRXaWRnZXRHZW9tZXRyeXEGQzIB2dDLAAIAAAAAAg8AAAEWAAAFLgAAAyUAAAIPAAABMgAABS4A
+AAMlAAAAAAAAAAAHgHEHWAsAAABzZWxlY3Rfcm93c3EIiFgVAAAAc2hvd19hdHRyaWJ1dGVfbGFi
+ZWxzcQmIWBIAAABzaG93X2Rpc3RyaWJ1dGlvbnNxColYCwAAAF9fdmVyc2lvbl9fcQtLAVgQAAAA
+Y29udGV4dF9zZXR0aW5nc3EMXXENKGNPcmFuZ2Uud2lkZ2V0cy5zZXR0aW5ncwpDb250ZXh0CnEO
+KYFxD31xEChYBAAAAHRpbWVxEUdB1sPtZw2I0lgGAAAAdmFsdWVzcRJ9cRMoWA0AAABzZWxlY3Rl
+ZF9jb2xzcRRdcRVLAGFYDQAAAHNlbGVjdGVkX3Jvd3NxFl1xF0sAYWgLSwF1WAoAAABhdHRyaWJ1
+dGVzcRh9cRkoWAQAAABGcmVxcRpLAlgFAAAAQ291bnRxG0sCdVgFAAAAbWV0YXNxHH1xHVgOAAAA
+TGV4aWNhbCBGaWVsZHNxHksDc3ViaA4pgXEffXEgKGgRR0HWv6U6CRTvaBJ9cSEoWA0AAABzZWxl
+Y3RlZF9jb2xzcSJdcSNYDQAAAHNlbGVjdGVkX3Jvd3NxJF1xJWgLSwF1aBh9cSYoWAQAAABGcmVx
+cSdLAlgFAAAAQ291bnRxKEsCdWgcfXEpWA4AAABvcmRlcmVkX2RvbWFpbnEqXXErKGgnSwKGcSxo
+KEsChnEtZXViaA4pgXEufXEvKGgRR0HWv3is+PQsaBJ9cTAoWA0AAABzZWxlY3RlZF9jb2xzcTFd
+cTIoSwBLAWVYDQAAAHNlbGVjdGVkX3Jvd3NxM11xNEsAYWgLSwF1aBh9cTVoGksCc2gcfXE2KGge
+SwNYBQAAAENvdW50cTdLA3V1YmgOKYFxOH1xOShoEUdB1r94n/YKlmgSfXE6KGgxXXE7aDNdcTxo
+C0sBdWgYfXE9WA4AAABMZXhpY2FsIEZpZWxkc3E+SwJzaBx9cT8oWAsAAABGcsOpcXVlbmNlc3FA
+SwNoN0sDdXViaA4pgXFBfXFCKGgRR0HWv3iS5YD+aBJ9cUMoaDFdcUQoSwBLAWVoM11xRUsAYWgL
+SwF1aBh9cUZoPksCc2gcfXFHaEBLA3N1YmgOKYFxSH1xSShoEUdB1r94jNR2ZGgSfXFKKGgxXXFL
+KEsASwFlaDNdcUxLAGFoC0sBdWgYfXFNKGg+SwJYCgAAAF9fZ2xvYmFsX19xTksCdWgcfXFPKGhA
+SwNYCAAAAF9fdW5pdF9fcVBLA3V1YmgOKYFxUX1xUihoEUdB1r94i0ZsK2gSfXFTKGgxXXFUKEsA
+SwFlaDNdcVVLAGFoC0sBdWgYfXFWKFgOAAAATGV4aWNhbCBGaWVsZHNxV0sCaE5LAnVoHH1xWCho
+N0sDaFBLA3V1YmgOKYFxWX1xWihoEUdB1r94PVejGmgSfXFbKGgxXXFcaDNdcV1oC0sBdWgYfXFe
+aE5LAnNoHH1xX2hQSwNzdWJoDimBcWB9cWEoaBFHQda/d/kogNhoEn1xYihoMV1xYyhLAEsBZWgz
+XXFkSwBhaAtLAXVoGH1xZShYCAAAAF9fTm9uZV9fcWZLAlgKAAAARXhlbXBsZS1GUnFnSwJYCgAA
+AEV4ZW1wbGUtRU5xaEsCWAoAAABFc2VtcGlvLUlUcWlLAnVoHH1xalgLAAAAX19jb250ZXh0X19x
+a0sDc3ViaA4pgXFsfXFtKGgRR0HWv3f0zDHoaBJ9cW4oaDFdcW8oSwBLAWVoM11xcEsAYWgLSwF1
+aBh9cXEoWAYAAABfX2lkX19xcksCaGtdcXNoTmFoUF1xdChoZmhnaGhoaWVYCgAAAF9fd2VpZ2h0
+X19xdUsCdWgcfXF2dWJldS4=
 </properties>
-		<properties format="literal" node_id="12">{'associationBias': 'none', 'autoSend': True, 'colDelimiter_idx': 0, 'conversionType': 'association matrix', 'convert': False, 'displayAdvancedSettings': False, 'exportEncoding': 'utf8', 'includeOrangeHeaders': False, 'lastLocation': '.', 'normalize': False, 'normalizeMode': 'rows', 'normalizeType': 'l1', 'reformat': False, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x8b\x00\x00\x01\x13\x00\x00\x00\x08\x00\x00\x00\x1e\x00\x00\x01\x83\x00\x00\x01\x0b\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80', 'sortCols': False, 'sortColsReverse': False, 'sortRows': False, 'sortRowsReverse': False, 'transpose': False, 'unweighted': False, 'uuid': '163fa8aa-3619-460c-bbcb-c14b2c8e1b6c', '__version__': 1, '_TextableUtils_settings_version__': (0, 19)}</properties>
-		<properties format="pickle" node_id="13">gAN9cQAoWBEAAABhdHRyX2F1Z21lbnRfZGF0YXEBY09yYW5nZS5kYXRhLnZhcmlhYmxlCm1ha2Vf
+		<properties format="pickle" node_id="12">gAN9cQAoWBEAAABhdHRyX2F1Z21lbnRfZGF0YXEBY09yYW5nZS5kYXRhLnZhcmlhYmxlCm1ha2Vf
 dmFyaWFibGUKcQJjT3JhbmdlLmRhdGEudmFyaWFibGUKU3RyaW5nVmFyaWFibGUKcQNjT3Jhbmdl
 LnByZXByb2Nlc3MudHJhbnNmb3JtYXRpb24KSWRlbnRpdHkKcQQpgXEFfXEGWAgAAAB2YXJpYWJs
 ZXEHaAJoA05YCAAAAF9fdW5pdF9fcQiHcQlScQp9cQsoWAQAAABuYW1lcQxoCFgOAAAAX2NvbXB1
 dGVfdmFsdWVxDU5YCwAAAHVua25vd25fc3RycQ5jYnVpbHRpbnMKc2V0CnEPXXEQKEd/+AAAAAAA
-AFgAAAAAcRFOWAEAAAAucRJYAQAAAD9xE1gDAAAAbmFucRRYAgAAAE5BcRVYAQAAAH5xFmWFcRdS
-cRhYDwAAAHNvdXJjZV92YXJpYWJsZXEZTlgKAAAAYXR0cmlidXRlc3EafXEbWAYAAABtYXN0ZXJx
-HGgKWAcAAABfY29sb3JzcR1OdWJzYlgOAAAATGV4aWNhbCBGaWVsZHNxHodxH1JxIH1xIShoDGge
-aA1oBWgOaBhoGU5oGn1xImgcaCBoHU51YlgSAAAAYXR0cl9hdWdtZW50X2V4dHJhcSNoAmgDaAQp
-gXEkfXElaAdoAmgDTmgIh3EmUnEnfXEoKGgMaAhoDU5oDmgYaBlOaBp9cSloHGgnaB1OdWJzYlgO
-AAAATGV4aWNhbCBGaWVsZHNxKodxK1JxLH1xLShoDGgqaA1oJGgOaBhoGU5oGn1xLmgcaCxoHU51
-YlgRAAAAYXR0cl9jb21iaW5lX2RhdGFxL2ggWBIAAABhdHRyX2NvbWJpbmVfZXh0cmFxMGgsWA8A
-AABhdHRyX21lcmdlX2RhdGFxMWggWBAAAABhdHRyX21lcmdlX2V4dHJhcTJoLFgHAAAAbWVyZ2lu
-Z3EzSwBYEwAAAHNhdmVkV2lkZ2V0R2VvbWV0cnlxNEMyAdnQywACAAAAAAFpAAAA3QAAA4MAAAIG
-AAABaQAAAPMAAAODAAACBgAAAAAAAAAABQBxNVgLAAAAX192ZXJzaW9uX19xNksBdS4=
+AFgAAAAAcRFOWAMAAABuYW5xElgBAAAAP3ETWAIAAABOQXEUWAEAAAB+cRVYAQAAAC5xFmWFcRdS
+cRhYDwAAAHNvdXJjZV92YXJpYWJsZXEZTlgGAAAAc3BhcnNlcRqJWAoAAABhdHRyaWJ1dGVzcRt9
+cRxYBwAAAF9jb2xvcnNxHU51YnNiWA4AAABMZXhpY2FsIEZpZWxkc3Eeh3EfUnEgfXEhKGgMaB5o
+DWgFaA5oGGgZTmgaiWgbfXEiaB1OdWJYEgAAAGF0dHJfYXVnbWVudF9leHRyYXEjaAJoA2gEKYFx
+JH1xJWgHaAJoA05oCIdxJlJxJ31xKChoDGgIaA1OaA5oGGgZTmgaiWgbfXEpaB1OdWJzYlgOAAAA
+TGV4aWNhbCBGaWVsZHNxKodxK1JxLH1xLShoDGgqaA1oJGgOaBhoGU5oGoloG31xLmgdTnViWBEA
+AABhdHRyX2NvbWJpbmVfZGF0YXEvaCBYEgAAAGF0dHJfY29tYmluZV9leHRyYXEwaCxYDwAAAGF0
+dHJfbWVyZ2VfZGF0YXExaCBYEAAAAGF0dHJfbWVyZ2VfZXh0cmFxMmgsWBIAAABjb250cm9sQXJl
+YVZpc2libGVxM4hYBwAAAG1lcmdpbmdxNEsAWBMAAABzYXZlZFdpZGdldEdlb21ldHJ5cTVDMgHZ
+0MsAAgAAAAACkAAAAX0AAASuAAACvQAAApAAAAGZAAAErgAAAr0AAAAAAAAAAAeAcTZYCwAAAF9f
+dmVyc2lvbl9fcTdLAXUu
 </properties>
-		<properties format="pickle" node_id="14">gAN9cQAoWAoAAABhdXRvY29tbWl0cQGIWBMAAABzYXZlZFdpZGdldEdlb21ldHJ5cQJDMgHZ0MsA
-AgAAAAABIgAAAEMAAAO1AAACbQAAASIAAABZAAADtQAAAm0AAAAAAAAAAAUAcQNYCwAAAF9fdmVy
-c2lvbl9fcQRLAVgQAAAAY29udGV4dF9zZXR0aW5nc3EFXXEGKGNPcmFuZ2Uud2lkZ2V0cy5zZXR0
-aW5ncwpDb250ZXh0CnEHKYFxCH1xCShYBAAAAHRpbWVxCkdB1r+lOfKuiVgGAAAAdmFsdWVzcQt9
-cQwoWBMAAABkb21haW5fY2hhbmdlX2hpbnRzcQ19cQ4oKFgUAAAAT3JhbmdlLmRhdGEudmFyaWFi
-bGVxD1gSAAAAQ29udGludW91c1ZhcmlhYmxlcRBYCgAAAF9fZ2xvYmFsX19xESkpdHESKGgPaBBY
-BAAAAEZyZXFxEykpdHEUKGgPWA4AAABTdHJpbmdWYXJpYWJsZXEVWAgAAABfX3VuaXRfX3EWKSl0
-cRcoaA9oFVgOAAAATGV4aWNhbCBGaWVsZHNxGCkpdHEZdUr+////hnEaWA4AAABzZWxlY3RlZF9p
-bmRleHEbSwBK/v///4ZxHGgESwF1WAoAAABhdHRyaWJ1dGVzcR19cR5YCgAAAF9fZ2xvYmFsX19x
-H0sCc1gFAAAAbWV0YXNxIH1xIVgOAAAAb3JkZXJlZF9kb21haW5xIl1xI2gfSwKGcSRhdWJoBymB
-cSV9cSYoaApHQda/ex1mdqdoC31xJyhYEwAAAGRvbWFpbl9jaGFuZ2VfaGludHNxKH1xKShoEmgU
-aBdoGXVK/v///4ZxKlgOAAAAc2VsZWN0ZWRfaW5kZXhxK0sASv7///+GcSxoBEsBdWgdfXEtaBFL
-AnNoIH1xLmgWSwNzdWJldS4=
+		<properties format="pickle" node_id="13">gAN9cQAoWAoAAABhdXRvY29tbWl0cQGIWBIAAABjb250cm9sQXJlYVZpc2libGVxAohYEwAAAHNh
+dmVkV2lkZ2V0R2VvbWV0cnlxA0MyAdnQywACAAAAAAEiAAAAQwAAA7UAAAJtAAABIgAAAFkAAAO1
+AAACbQAAAAAAAAAABQBxBFgLAAAAX192ZXJzaW9uX19xBUsBWBAAAABjb250ZXh0X3NldHRpbmdz
+cQZdcQcoY09yYW5nZS53aWRnZXRzLnNldHRpbmdzCkNvbnRleHQKcQgpgXEJfXEKKFgEAAAAdGlt
+ZXELR0HWw+1m/ntzWAYAAAB2YWx1ZXNxDH1xDShYEwAAAGRvbWFpbl9jaGFuZ2VfaGludHNxDn1x
+DygoWBQAAABPcmFuZ2UuZGF0YS52YXJpYWJsZXEQWBIAAABDb250aW51b3VzVmFyaWFibGVxEVgK
+AAAAX19nbG9iYWxfX3ESKSl0cRMoaBBoEVgEAAAARnJlcXEUKSl0cRUoaBBYDgAAAFN0cmluZ1Zh
+cmlhYmxlcRZYCAAAAF9fdW5pdF9fcRcpKXRxGChoEGgWWA4AAABMZXhpY2FsIEZpZWxkc3EZKSl0
+cRp1Sv7///+GcRtYDgAAAHNlbGVjdGVkX2luZGV4cRxLAEr+////hnEdaAVLAXVYCgAAAGF0dHJp
+YnV0ZXNxHn1xH2gSSwJzWAUAAABtZXRhc3EgfXEhaBdLA3N1YmgIKYFxIn1xIyhoC0dB1r+lOfKu
+iWgMfXEkKFgTAAAAZG9tYWluX2NoYW5nZV9oaW50c3ElfXEmKGgTaBVoGGgadUr+////hnEnWA4A
+AABzZWxlY3RlZF9pbmRleHEoSwBK/v///4ZxKWgFSwF1aB59cSpYCgAAAF9fZ2xvYmFsX19xK0sC
+c2ggfXEsWA4AAABvcmRlcmVkX2RvbWFpbnEtXXEuaCtLAoZxL2F1YmV1Lg==
 </properties>
-		<properties format="pickle" node_id="15">gAN9cQAoWAoAAABhdXRvY29tbWl0cQGIWBMAAABzYXZlZFdpZGdldEdlb21ldHJ5cQJDMgHZ0MsA
-AgAAAAABLAAAAE0AAAO/AAACdwAAASwAAABjAAADvwAAAncAAAAAAAAAAAUAcQNYCwAAAF9fdmVy
-c2lvbl9fcQRLAVgQAAAAY29udGV4dF9zZXR0aW5nc3EFXXEGKGNPcmFuZ2Uud2lkZ2V0cy5zZXR0
-aW5ncwpDb250ZXh0CnEHKYFxCH1xCShYBAAAAHRpbWVxCkdB1r+lOfmoZFgGAAAAdmFsdWVzcQt9
-cQwoWBMAAABkb21haW5fY2hhbmdlX2hpbnRzcQ19cQ4oKFgUAAAAT3JhbmdlLmRhdGEudmFyaWFi
-bGVxD1gSAAAAQ29udGludW91c1ZhcmlhYmxlcRBYCgAAAF9fZ2xvYmFsX19xESkpdHESKGgPaBBY
-BQAAAENvdW50cRMpKXRxFChoD1gOAAAAU3RyaW5nVmFyaWFibGVxFVgIAAAAX191bml0X19xFikp
-dHEXKGgPaBVYDgAAAExleGljYWwgRmllbGRzcRgpKXRxGXVK/v///4ZxGlgOAAAAc2VsZWN0ZWRf
-aW5kZXhxG0sASv7///+GcRxoBEsBdVgKAAAAYXR0cmlidXRlc3EdfXEeWAoAAABfX2dsb2JhbF9f
-cR9LAnNYBQAAAG1ldGFzcSB9cSFYDgAAAG9yZGVyZWRfZG9tYWlucSJdcSNoH0sChnEkYXViaAcp
-gXElfXEmKGgKR0HWv3sdbM0IaAt9cScoWBMAAABkb21haW5fY2hhbmdlX2hpbnRzcSh9cSkoaBJo
-FGgXaBl1Sv7///+GcSpYDgAAAHNlbGVjdGVkX2luZGV4cStLAEr+////hnEsaARLAXVoHX1xLWgR
-SwJzaCB9cS5oFksDc3ViZXUu
+		<properties format="pickle" node_id="14">gAN9cQAoWAoAAABhdXRvY29tbWl0cQGIWBIAAABjb250cm9sQXJlYVZpc2libGVxAohYEwAAAHNh
+dmVkV2lkZ2V0R2VvbWV0cnlxA0MyAdnQywACAAAAAAEsAAAATQAAA78AAAJ3AAABLAAAAGMAAAO/
+AAACdwAAAAAAAAAABQBxBFgLAAAAX192ZXJzaW9uX19xBUsBWBAAAABjb250ZXh0X3NldHRpbmdz
+cQZdcQcoY09yYW5nZS53aWRnZXRzLnNldHRpbmdzCkNvbnRleHQKcQgpgXEJfXEKKFgEAAAAdGlt
+ZXELR0HWw+1m9zZdWAYAAAB2YWx1ZXNxDH1xDShYEwAAAGRvbWFpbl9jaGFuZ2VfaGludHNxDn1x
+DygoWBQAAABPcmFuZ2UuZGF0YS52YXJpYWJsZXEQWBIAAABDb250aW51b3VzVmFyaWFibGVxEVgK
+AAAAX19nbG9iYWxfX3ESKSl0cRMoaBBoEVgFAAAAQ291bnRxFCkpdHEVKGgQWA4AAABTdHJpbmdW
+YXJpYWJsZXEWWAgAAABfX3VuaXRfX3EXKSl0cRgoaBBoFlgOAAAATGV4aWNhbCBGaWVsZHNxGSkp
+dHEadUr+////hnEbWA4AAABzZWxlY3RlZF9pbmRleHEcSwBK/v///4ZxHWgFSwF1WAoAAABhdHRy
+aWJ1dGVzcR59cR9oEksCc1gFAAAAbWV0YXNxIH1xIWgXSwNzdWJoCCmBcSJ9cSMoaAtHQda/pTn5
+qGRoDH1xJChYEwAAAGRvbWFpbl9jaGFuZ2VfaGludHNxJX1xJihoE2gVaBhoGnVK/v///4ZxJ1gO
+AAAAc2VsZWN0ZWRfaW5kZXhxKEsASv7///+GcSloBUsBdWgefXEqWAoAAABfX2dsb2JhbF9fcStL
+AnNoIH1xLFgOAAAAb3JkZXJlZF9kb21haW5xLV1xLmgrSwKGcS9hdWJldS4=
 </properties>
-		<properties format="pickle" node_id="16">gAN9cQAoWBEAAABhcHBseU1heFRocmVzaG9sZHEBiFgRAAAAYXBwbHlNaW5UaHJlc2hvbGRxAohY
+		<properties format="pickle" node_id="15">gAN9cQAoWBEAAABhcHBseU1heFRocmVzaG9sZHEBiFgRAAAAYXBwbHlNaW5UaHJlc2hvbGRxAohY
 CgAAAGF1dG9OdW1iZXJxA4hYDQAAAGF1dG9OdW1iZXJLZXlxBFgDAAAAbnVtcQVYCAAAAGF1dG9T
-ZW5kcQaIWA8AAABjb3B5QW5ub3RhdGlvbnNxB4hYFwAAAGRpc3BsYXlBZHZhbmNlZFNldHRpbmdz
-cQiJWAYAAABkb3RBbGxxCYlYCgAAAGlnbm9yZUNhc2VxColYDQAAAG1heFByb3BvcnRpb25xC0tk
-WAYAAABtZXRob2RxDFgFAAAAUmVnZXhxDVgNAAAAbWluUHJvcG9ydGlvbnEOSwFYCQAAAG11bHRp
-bGluZXEPiVgFAAAAcmVnZXhxEFgEAAAATG92ZXERWAkAAAByZWdleE1vZGVxElgHAAAASW5jbHVk
-ZXETWA4AAABzYW1wbGVTaXplTW9kZXEUWAUAAABDb3VudHEVWAwAAABzYW1wbGluZ1JhdGVxFksB
-WBMAAABzYXZlZFdpZGdldEdlb21ldHJ5cRdDMgHZ0MsAAgAAAAAAAAAAAAAAAAFoAAABFwAAAAgA
-AAAeAAABYAAAAQ8AAAAAAAAAAAeAcRhYDQAAAHRocmVzaG9sZE1vZGVxGWgVWBAAAAB1bmljb2Rl
-RGVwZW5kZW50cRqIWAQAAAB1dWlkcRtOWAsAAABfX3ZlcnNpb25fX3EcSwFYEAAAAGNvbnRleHRf
-c2V0dGluZ3NxHV1xHihjT3JhbmdlLndpZGdldHMuc2V0dGluZ3MKQ29udGV4dApxHymBcSB9cSEo
-WAQAAAB0aW1lcSJHQda/pTnQ9CpYBgAAAHZhbHVlc3EjfXEkKFgIAAAAbWF4Q291bnRxJUsBWAgA
-AABtaW5Db3VudHEmSwFYEgAAAHJlZ2V4QW5ub3RhdGlvbktleXEnWAgAAABNeSBUb3BpY3EoWAoA
-AABzYW1wbGVTaXplcSlLAVgWAAAAdGhyZXNob2xkQW5ub3RhdGlvbktleXEqWAYAAAAobm9uZSlx
-K2gcSwF1WAcAAABlbmNvZGVkcSxYDgAAAExleGljYWwgSHVudGVycS1YBwAAAExhbmdhZ2VxLlgI
-AAAATXkgVG9waWNxL4ZxMIZxMXViaB8pgXEyfXEzKGgiR0HWv3sdMUnxaCN9cTQoWAgAAABtYXhD
-b3VudHE1SwFYCAAAAG1pbkNvdW50cTZLAVgSAAAAcmVnZXhBbm5vdGF0aW9uS2V5cTdYCAAAAE15
-IFRvcGljcThYCgAAAHNhbXBsZVNpemVxOUsBWBYAAAB0aHJlc2hvbGRBbm5vdGF0aW9uS2V5cTpY
-BgAAAChub25lKXE7aBxLAXVoLFgQAAAAU2VsZWN0IGEgbGFuZ2FnZXE8aC5oL4ZxPYZxPnViaB8p
-gXE/fXFAKGgiR0HWv3r8afvfaCN9cUEoaDVLAWg2SwFoN2g7aDlLAWg6aDtoHEsBdWgsaDwphnFC
-dWJoHymBcUN9cUQoaCJHQda/evbLe0FoI31xRShoNUsBaDZLAWg3aDtoOUsBaDpoO2gcSwF1aCxY
-DQAAAFNlbGVjdCBhIGxpc3RxRimGcUd1YmVYIQAAAF9UZXh0YWJsZVV0aWxzX3NldHRpbmdzX3Zl
-cnNpb25fX3FISwBLDoZxSXUu
+ZW5kcQaIWBIAAABjb250cm9sQXJlYVZpc2libGVxB4hYDwAAAGNvcHlBbm5vdGF0aW9uc3EIiFgX
+AAAAZGlzcGxheUFkdmFuY2VkU2V0dGluZ3NxCYlYBgAAAGRvdEFsbHEKiVgKAAAAaWdub3JlQ2Fz
+ZXELiVgNAAAAbWF4UHJvcG9ydGlvbnEMS2RYBgAAAG1ldGhvZHENWAUAAABSZWdleHEOWA0AAABt
+aW5Qcm9wb3J0aW9ucQ9LAVgJAAAAbXVsdGlsaW5lcRCJWAUAAAByZWdleHERWAQAAABMb3ZlcRJY
+CQAAAHJlZ2V4TW9kZXETWAcAAABJbmNsdWRlcRRYDgAAAHNhbXBsZVNpemVNb2RlcRVYBQAAAENv
+dW50cRZYDAAAAHNhbXBsaW5nUmF0ZXEXSwFYEwAAAHNhdmVkV2lkZ2V0R2VvbWV0cnlxGEMyAdnQ
+ywACAAAAAAAAAAAAAAAAAWgAAAEXAAAACAAAAB4AAAFgAAABDwAAAAAAAAAAB4BxGVgNAAAAdGhy
+ZXNob2xkTW9kZXEaaBZYEAAAAHVuaWNvZGVEZXBlbmRlbnRxG4hYBAAAAHV1aWRxHFgkAAAAMzIz
+Y2E0MzAtZTFkYy00ZjYyLWIzMTgtMmQzM2I4ZDVkMmZlcR1YCwAAAF9fdmVyc2lvbl9fcR5LAVgQ
+AAAAY29udGV4dF9zZXR0aW5nc3EfXXEgKGNPcmFuZ2Uud2lkZ2V0cy5zZXR0aW5ncwpDb250ZXh0
+CnEhKYFxIn1xIyhYBAAAAHRpbWVxJEdB1sPtWOjIllgGAAAAdmFsdWVzcSV9cSYoWAgAAABtYXhD
+b3VudHEnSwFYCAAAAG1pbkNvdW50cShLAVgSAAAAcmVnZXhBbm5vdGF0aW9uS2V5cSlYCAAAAE15
+IFRvcGljcSpYCgAAAHNhbXBsZVNpemVxK0sBWBYAAAB0aHJlc2hvbGRBbm5vdGF0aW9uS2V5cSxY
+BgAAAChub25lKXEtaB5LAXVYBwAAAGVuY29kZWRxLlgOAAAATGV4aWNhbCBIdW50ZXJxL1gIAAAA
+TGFuZ3VhZ2VxMFgIAAAATXkgVG9waWNxMYZxMoZxM3ViaCEpgXE0fXE1KGgkR0HWw+1OIGz+aCV9
+cTYoaCdLAWgoSwFoKWgqaCtLAWgsaC1oHksBdWguWA4AAABMZXhpY2FsIEh1bnRlcnE3WAcAAABM
+YW5nYWdlcThYCAAAAE15IFRvcGljcTmGcTqGcTt1YmghKYFxPH1xPShoJEdB1r97HTFJ8WglfXE+
+KFgIAAAAbWF4Q291bnRxP0sBWAgAAABtaW5Db3VudHFASwFYEgAAAHJlZ2V4QW5ub3RhdGlvbktl
+eXFBWAgAAABNeSBUb3BpY3FCWAoAAABzYW1wbGVTaXplcUNLAVgWAAAAdGhyZXNob2xkQW5ub3Rh
+dGlvbktleXFEWAYAAAAobm9uZSlxRWgeSwF1aC5YEAAAAFNlbGVjdCBhIGxhbmdhZ2VxRmg4aDmG
+cUeGcUh1YmghKYFxSX1xSihoJEdB1r96/Gn732glfXFLKGg/SwFoQEsBaEFoRWhDSwFoRGhFaB5L
+AXVoLmhGKYZxTHViaCEpgXFNfXFOKGgkR0HWv3r2y3tBaCV9cU8oaD9LAWhASwFoQWhFaENLAWhE
+aEVoHksBdWguWA0AAABTZWxlY3QgYSBsaXN0cVAphnFRdWJlWCEAAABfVGV4dGFibGVVdGlsc19z
+ZXR0aW5nc192ZXJzaW9uX19xUksASw6GcVN1Lg==
 </properties>
 	</node_properties>
 </scheme>
