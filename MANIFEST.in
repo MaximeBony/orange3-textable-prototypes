@@ -1,0 +1,7 @@
+recursive-include orangecontrib *.png
+recursive-include doc *
+include doc/Makefile
+include LICENSE
+include *.py *.md *.ows
+prune scripts
+prune specs
